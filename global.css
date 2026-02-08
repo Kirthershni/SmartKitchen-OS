@@ -85,6 +85,7 @@ body { font-family: 'Poppins', sans-serif; background-color: var(--gray-bg); dis
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.4s ease;
+    z-index: 1001;
 }
 .mood-status.show { opacity: 1; transform: translateY(0); }
 
@@ -114,28 +115,45 @@ header {
 
 /* --- CARDS & MODAL --- */
 .recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-.recipe-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
+
+.recipe-card { 
+    background: white; 
+    border-radius: 20px; 
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    cursor: pointer; 
+}
+
+/* UPDATED: Fixed height for main grid images */
+.recipe-card img {
+    width: 100%;
+    height: 200px; /* Normal size like your reference image */
+    object-fit: cover; /* Prevents stretching */
+    display: block;
+}
+
 .recipe-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15); }
 
 .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); }
 .modal-content { background: white; margin: 3vh auto; padding: 40px; width: 95%; max-width: 900px; border-radius: 25px; max-height: 90vh; overflow-y: auto; position: relative; }
 .modal-content::-webkit-scrollbar { width: 8px; }
 .modal-content::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-.modal-header-img { width: 100%; height: 400px; object-fit: cover; border-radius: 20px; margin-bottom: 30px; }
-/* ... all your other existing CSS ... */
+
+/* UPDATED: Fixed height for modal image */
+.modal-header-img { 
+    width: 100%; 
+    height: 300px; /* Reduced from 400px to be more proportional */
+    object-fit: cover; 
+    border-radius: 20px; 
+    margin-bottom: 30px; 
+}
 
 /* --- MOOD SYSTEM TRANSITIONS --- */
 body {
-    /* This makes the background color fade smoothly over 0.5 seconds */
     transition: background-color 0.5s ease, color 0.3s ease;
 }
 
 #sidebar-container {
-    /* This ensures the sidebar color also fades smoothly when the mood changes */
     transition: width 0.3s ease, background-color 0.5s ease;
-}
-
-/* Ensure the mood status pill is visible over other elements */
-.mood-status {
-    z-index: 1001;
 }
