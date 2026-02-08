@@ -1,0 +1,89 @@
+/* Header & Layout */
+.budget-header { text-align: center; padding: 20px 0; }
+.budget-header h1 { font-size: 2.2rem; margin-bottom: 5px; }
+
+.budget-input-zone {
+    background: white;
+    padding: 50px 40px;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 40px;
+    border: 1px solid #f1f5f9;
+}
+
+.wallet-icon { font-size: 4rem; margin-bottom: 20px; display: block; }
+
+/* Centering the Input & Button */
+.centered-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+#budget-limit {
+    width: 100%;
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    font-size: 1.2rem;
+    text-align: center;
+    outline: none;
+    transition: 0.3s;
+}
+
+#budget-limit:focus { border-color: #10b981; }
+
+.btn-budget-scan {
+    width: 100%;
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-budget-scan:hover { background: #059669; transform: translateY(-2px); }
+
+/* Range Brackets */
+.pantry-title { 
+    margin: 30px 0 15px; 
+    font-weight: 600; 
+    color: #64748b; 
+    font-size: 0.9rem; 
+    text-transform: uppercase; 
+}
+
+.budget-ranges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+.range-chip {
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.range-chip:hover { border-color: #10b981; background: #f0fdf4; transform: scale(1.05); }
+
+/* Price Badge on Cards */
+.price-badge {
+    position: absolute;
+    top: 0; right: 0;
+    background: #10b981;
+    color: white;
+    padding: 8px 15px;
+    border-bottom-left-radius: 15px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
