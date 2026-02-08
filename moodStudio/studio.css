@@ -1,0 +1,53 @@
+.mood-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.mood-card {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+}
+
+.mood-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(168, 85, 247, 0.15);
+    border-color: var(--accent);
+}
+
+.mood-card .emoji {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.mood-card h3 { color: var(--bg-dark); margin-bottom: 8px; }
+.mood-card p { font-size: 0.85rem; color: #64748b; }
+
+#mood-results h2 {
+    font-family: 'Playfair Display', serif;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ensure the card images match the Hub style */
+.recipe-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: 0.3s;
+}
+
+.recipe-card:hover img {
+    transform: scale(1.05);
+}
