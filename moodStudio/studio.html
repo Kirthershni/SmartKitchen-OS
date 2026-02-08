@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gourmet Hub | Mood Studio</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="studio.css">
+</head>
+<body>
+    <aside id="sidebar-container" class="sidebar collapsed"></aside>
+
+    <div class="main-wrapper">
+        <header class="studio-header">
+            <h1 class="logo">Mood<span>Studio</span></h1>
+            <p>How are you feeling? We'll match a recipe to your soul.</p>
+        </header>
+
+        <section class="mood-selector">
+            <div class="mood-card" onclick="fetchMood('happy')">
+                <span class="emoji">😊</span>
+                <h3>Happy</h3>
+                <p>Sweet treats for a sweet day</p>
+            </div>
+            <div class="mood-card" onclick="fetchMood('angry')">
+                <span class="emoji">🔥</span>
+                <h3>Angry</h3>
+                <p>Channel the heat with spice</p>
+            </div>
+            <div class="mood-card" onclick="fetchMood('sad')">
+                <span class="emoji">☁️</span>
+                <h3>Sad</h3>
+                <p>Warm, cozy comfort food</p>
+            </div>
+            <div class="mood-card" onclick="fetchMood('tired')">
+                <span class="emoji">😴</span>
+                <h3>Tired</h3>
+                <p>Quick & easy low-effort meals</p>
+            </div>
+        </section>
+
+        <div id="mood-results" class="recipe-grid"></div>
+    </div>
+
+    <div id="recipe-modal" class="modal">
+        <div class="modal-content"><span class="close-modal" onclick="closeModal()">&times;</span><div id="modal-body"></div></div>
+    </div>
+
+    <script src="../sidebar.js"></script>
+    <script src="studio.js"></script>
+</body>
+</html>
