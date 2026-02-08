@@ -1,0 +1,61 @@
+.recipe-form-container {
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+.form-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #f1f5f9;
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.form-grid input, .form-grid textarea {
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    font-size: 1rem;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-grid textarea { height: 120px; resize: vertical; }
+
+.btn-save {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-save:hover { background: #9333ea; transform: translateY(-2px); }
+
+/* Custom Delete Button on Cards */
+.delete-btn {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: #fee2e2;
+    color: #ef4444;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.delete-btn:hover { background: #ef4444; color: white; }
