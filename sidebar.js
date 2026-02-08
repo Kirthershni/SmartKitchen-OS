@@ -1,8 +1,14 @@
 function injectSidebar() {
-    const isSub = window.location.pathname.split('/').length > 2 && 
-                  !window.location.pathname.endsWith('index.html');
+    // Logic to detect if we are in a subfolder
+    const path = window.location.pathname;
+    const isSub = path.includes('/DnaLab/') || 
+                  path.includes('/budgetPlanner/') || 
+                  path.includes('/moodStudio/') || 
+                  path.includes('/mutationArchive/') || 
+                  path.includes('/myRecipes/') || 
+                  path.includes('/timeWrap/'); // Matches your folder name
     
-    const prefix = isSub ? '../' : '';
+    const prefix = isSub ? '../' : './';
 
     const html = `
         <div class="sidebar-header">
@@ -19,7 +25,7 @@ function injectSidebar() {
                 <li onclick="location.href='${prefix}budgetPlanner/budget.html'" class="nav-item">💰 <span>Budget Planner</span></li>
                 <li onclick="location.href='${prefix}myRecipes/recipes.html'" class="nav-item">👨‍🍳 <span>My Kitchen</span></li>
                 <li onclick="location.href='${prefix}mutationArchive/mutation.html'" class="nav-item">👽 <span>Mutation Archive</span></li>
-                <li onclick="location.href='${prefix}timeWarp/time.html'" class="nav-item">⏰ <span>Time Warp</span></li>
+                <li onclick="location.href='${prefix}timeWrap/time.html'" class="nav-item">⏰ <span>Time Warp</span></li>
             </ul>
         </nav>
 
