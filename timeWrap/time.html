@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gourmet Hub | Time Warp</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="time.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <aside id="sidebar-container" class="sidebar collapsed"></aside>
+
+    <div class="main-wrapper">
+        <header class="warp-header">
+            <h1 class="logo">Time<span>Warp</span></h1>
+            <p>Select a subject to begin voice-guided navigation.</p>
+        </header>
+
+        <section class="warp-container">
+            <div class="init-zone">
+                <input type="text" id="warp-search" placeholder="Search for a dish (e.g. Chocolate)..." onkeydown="if(event.key==='Enter') searchWarpSubjects()">
+                <button onclick="searchWarpSubjects()" class="btn-warp">SEARCH</button>
+            </div>
+
+            <div id="selection-grid" class="recipe-grid"></div>
+
+            <div id="warp-display" class="warp-display" style="display: none;">
+                <button class="back-to-search" onclick="resetWarp()">← Back to Search</button>
+                <div class="temporal-status"><span id="step-counter">0 / 0</span></div>
+                <div class="instruction-box"><h2 id="current-step-text">Synchronizing...</h2></div>
+                <div class="warp-navigation">
+                    <button onclick="warpBack()" class="nav-btn">REWIND</button>
+                    <button onclick="repeatSpeech()" class="nav-btn play-btn">REPEAT</button>
+                    <button onclick="warpForward()" class="nav-btn">NEXT</button>
+                </div>
+                <div class="timeline-container"><div id="timeline-progress" class="timeline-bar"></div></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../sidebar.js"></script>
+    <script src="time.js"></script>
+</body>
+</html>
