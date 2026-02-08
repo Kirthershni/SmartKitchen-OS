@@ -1,0 +1,159 @@
+/* Minimal Header */
+.lab-header { text-align: center; padding: 10px 0 20px; }
+.lab-header h1 { font-size: 2.2rem; margin-bottom: 5px; }
+
+/* Full Width Scan Area */
+.dna-input-zone {
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    width: 100%;
+    margin-bottom: 40px;
+    border: 1px solid #e2e8f0;
+}
+
+.scan-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+#fridge-input {
+    width: 100%;
+    padding: 18px 25px;
+    border-radius: 12px;
+    border: 2px solid #cbd5e1;
+    font-size: 1.1rem;
+    outline: none;
+    background: #f8fafc;
+}
+
+/* Normalized Scan Button */
+.btn-primary-lab {
+    width: 100%;
+    background: var(--accent); /* Uses your purple theme */
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-primary-lab:hover {
+    background: #9333ea;
+    transform: translateY(-2px);
+}
+
+/* Normalized Clear Button */
+.btn-clear-lab {
+    background: #f1f5f9;
+    color: #64748b;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    margin-top: 25px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-clear-lab:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+/* Pantry Chips */
+.pantry-line {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.ing-chip {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.ing-chip:hover {
+    border-color: var(--accent);
+    background: #fdf4ff;
+}
+
+/* 1. Large Centered DNA Icon */
+.dna-hero-icon {
+    font-size: 5rem; /* Massive size in the center */
+    margin-bottom: 30px;
+    display: block;
+    text-align: center;
+    filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.3));
+    animation: dnaPulse 3s ease-in-out infinite;
+}
+
+@keyframes dnaPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* 2. Compact Scan Button */
+.btn-primary-lab.compact {
+    max-width: 400px; /* Reduced length */
+    margin: 0 auto;
+    display: block;
+}
+
+/* 3. Styled & Centered Pantry Title */
+.pantry-title {
+    text-align: center;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pantry-title::before, .pantry-title::after {
+    content: "";
+    height: 1px;
+    width: 50px;
+    background: linear-gradient(to right, transparent, var(--accent));
+}
+
+.pantry-title::after {
+    background: linear-gradient(to left, transparent, var(--accent));
+}
+
+/* 4. Top-Right Purple Badge for Cards */
+.match-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--accent);
+    color: white;
+    padding: 8px 15px;
+    border-bottom-left-radius: 15px; /* Creates a sharp 'box' look on corner */
+    font-weight: 700;
+    font-size: 0.9rem;
+    z-index: 10;
+    box-shadow: -2px 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Ensure card handles relative positioning */
+.recipe-card {
+    position: relative;
+    overflow: hidden; /* Clips the badge neatly */
+}
