@@ -1,0 +1,141 @@
+:root {
+    --accent: #a855f7;
+    --bg-dark: #1e1b4b;
+    --sidebar-color: #4840a1;
+    --text-main: #1e293b;
+    --gray-bg: #f1f5f9;
+    --danger: #ef4444;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background-color: var(--gray-bg); display: flex; min-height: 100vh; transition: background 0.5s ease; }
+
+/* --- SIDEBAR REPAIR --- */
+#sidebar-container {
+    width: 260px;
+    background: var(--sidebar-color);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    padding: 15px;
+    transition: width 0.3s ease, background 0.5s ease;
+    z-index: 1000;
+}
+
+#sidebar-container.collapsed { width: 80px; }
+#sidebar-container.collapsed span, 
+#sidebar-container.collapsed .mood-selector h4 { display: none; }
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    box-shadow: -4px 0 0 0 var(--accent);
+}
+
+.nav-item span { margin-left: 15px; font-weight: 500; white-space: nowrap; }
+
+/* --- MOOD SYSTEM UI --- */
+.mood-selector {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+}
+
+.mood-selector h4 {
+    color: white;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.mood-buttons { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.mood-buttons button {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    width: 35px; height: 35px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: 0.2s;
+}
+.mood-buttons button:hover { transform: scale(1.2); background: var(--accent); }
+
+.mood-status {
+    position: absolute;
+    top: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+}
+.mood-status.show { opacity: 1; transform: translateY(0); }
+
+/* --- MAIN CONTENT --- */
+.main-wrapper { flex: 1; padding: 40px; }
+header {
+    background: white; padding: 60px 20px; border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+    display: flex; flex-direction: column; align-items: center;
+    position: relative; margin-bottom: 50px;
+}
+
+.logo { font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 20px; }
+.logo span { color: var(--accent); }
+
+.search-container {
+    width: 100%; max-width: 550px;
+    display: flex; background: #f8fafc;
+    border: 2px solid #e2e8f0; border-radius: 50px;
+    padding: 6px 10px; transition: 0.3s;
+}
+.search-container:focus-within { border-color: var(--accent); background: white; }
+.search-container input { flex: 1; border: none; background: transparent; padding: 12px 20px; outline: none; }
+.search-container button { background: var(--accent); color: white; border: none; padding: 10px 25px; border-radius: 40px; cursor: pointer; font-weight: 600; }
+
+.btn-my-kitchen { position: absolute; top: 30px; right: 30px; background: #10b981; color: white; padding: 12px 20px; border-radius: 15px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+
+/* --- CARDS & MODAL --- */
+.recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+.recipe-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
+.recipe-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15); }
+
+.modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); }
+.modal-content { background: white; margin: 3vh auto; padding: 40px; width: 95%; max-width: 900px; border-radius: 25px; max-height: 90vh; overflow-y: auto; position: relative; }
+.modal-content::-webkit-scrollbar { width: 8px; }
+.modal-content::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+.modal-header-img { width: 100%; height: 400px; object-fit: cover; border-radius: 20px; margin-bottom: 30px; }
+/* ... all your other existing CSS ... */
+
+/* --- MOOD SYSTEM TRANSITIONS --- */
+body {
+    /* This makes the background color fade smoothly over 0.5 seconds */
+    transition: background-color 0.5s ease, color 0.3s ease;
+}
+
+#sidebar-container {
+    /* This ensures the sidebar color also fades smoothly when the mood changes */
+    transition: width 0.3s ease, background-color 0.5s ease;
+}
+
+/* Ensure the mood status pill is visible over other elements */
+.mood-status {
+    z-index: 1001;
+}

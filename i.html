@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gourmet Hub | Discover</title>
+    <link rel="stylesheet" href="g.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <aside id="sidebar-container"></aside>
+
+    <div class="main-wrapper">
+        <header>
+            <div id="mood-status" class="mood-status"></div>
+
+            <h1 class="logo">Gourmet<span>Hub</span></h1>
+            
+            <div class="search-container">
+                <input type="text" id="main-search" placeholder="Search for recipes (e.g. Pasta, Pizza)...">
+                <button onclick="searchRecipes()">Search</button>
+            </div>
+
+            <a href="#" class="btn-my-kitchen">My Kitchen</a>
+        </header>
+
+        <main>
+            <h2 style="margin-bottom: 30px;">Featured Recipes</h2>
+            <div id="recipe-grid" class="recipe-grid">
+                </div>
+        </main>
+    </div>
+
+    <div id="recipe-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="si.js"></script>
+    <script src="s.js"></script>
+</body>
+</html>
