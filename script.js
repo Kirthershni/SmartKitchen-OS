@@ -44,6 +44,7 @@ function changeMood(mood, showNotify = true) {
 async function searchRecipes(customTerm = null) {
     const query = customTerm || document.getElementById('main-search').value;
     const grid = document.getElementById('recipe-grid');
+    if (!grid) return;
     if (!query) return;
     grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>Searching...</p>";
     try {
@@ -58,7 +59,7 @@ function renderRecipes(meals) {
     if (!meals) { grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>No recipes found.</p>"; return; }
     grid.innerHTML = meals.map(meal => `
         <div class="recipe-card" onclick="openModal('${meal.idMeal}')">
-            <img src="${meal.strMealThumb}">
+            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
             <div style="padding:20px;">
                 <h3>${meal.strMeal}</h3>
                 <p style="font-size:0.85rem; color:#64748b;">${meal.strCategory} | ${meal.strArea}</p>
@@ -112,7 +113,7 @@ async function openModal(id) {
 
     modalBody.innerHTML = `
         <h2 style="font-family:'Playfair Display'; font-size:2.5rem; margin-bottom:20px;">${meal.strMeal}</h2>
-        <img src="${meal.strMealThumb}" class="modal-header-img">
+        <img src="${meal.strMealThumb}" class="modal-header-img" alt="Meal Image">
 
         <div class="action-bar" style="display:flex; gap:10px; margin-bottom:25px; flex-wrap:wrap;">
             <button onclick="shareMissingIngredients('${meal.strMeal}')" style="background:#075E54; color:white; border:none; padding:12px; border-radius:12px; cursor:pointer; font-weight:600; flex:2;">Get Shopping List 🛒</button>
@@ -121,7 +122,6 @@ async function openModal(id) {
 
         <div class="recipe-section" id="prep-section">
             <h3 style="border-left:5px solid var(--accent); padding-left:15px; margin-bottom:15px;">What's in your fridge? 🧊</h3>
-            <p style="font-size:0.9rem; color:#64748b; margin-bottom:15px;">Check what you <strong>HAVE</strong>. Anything left goes to WhatsApp.</p>
             <ul id="prep-list" style="padding:0; list-style:none;">${ingredientsHTML}</ul>
         </div>
 
@@ -144,7 +144,7 @@ async function openModal(id) {
             <p id="voice-indicator" style="font-size:0.8rem; color:var(--accent); margin-top:10px; display:none;">🎤 Listening for "I'm ready"...</p>
             <div id="ai-controls" style="margin-top:20px; display:none; gap:10px; justify-content:center; flex-wrap:wrap;">
                 <button onclick="prevStep()" style="background:#64748b; color:white; border:none; padding:10px 20px; border-radius:10px;">⬅ Back</button>
-                <button onclick="updateStepView()" style="background:var(--accent); color:white; border:none; padding:10px 20px; border-radius:10px; opacity:0.8;">Repeat 🔊</button>
+                <button onclick="updateStepView()" style="background:var(--accent); color:white; border:none; padding:10px 20px; border-radius:10px;">Repeat 🔊</button>
                 <button onclick="nextStep()" style="background:var(--accent); color:white; border:none; padding:10px 20px; border-radius:10px;">Next ➡</button>
             </div>
             <button id="ai-start-btn" onclick="activateVoiceTrigger()" style="margin-top:20px; background:var(--accent); color:white; border:none; padding:12px 30px; border-radius:30px; font-weight:600; cursor:pointer; width:100%;">Start Assistant</button>
@@ -155,7 +155,6 @@ async function openModal(id) {
     document.body.style.overflow = 'hidden';
 }
 
-// --- VOICE TRIGGER RESTORED ---
 function activateVoiceTrigger() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) { startAssistantManual(); return; }
@@ -205,33 +204,60 @@ function updateStepView() {
 function nextStep() { if (currentStepIndex < currentSteps.length - 1) { currentStepIndex++; updateStepView(); } else { currentStepIndex = currentSteps.length; updateStepView(); } }
 function prevStep() { if (currentStepIndex > 0) { currentStepIndex--; updateStepView(); } }
 
-// --- TIMER LOGIC RESTORED ---
 function setTimer(m) { if(!m) return; timeLeft = m * 60; updateTimerDisplay(); }
+
 function updateTimerDisplay() {
+    const display = document.getElementById('timer-display');
+    if(!display) return;
     const mins = Math.floor(timeLeft / 60);
     const secs = timeLeft % 60;
-    const display = document.getElementById('timer-display');
-    if(display) display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
+
 function toggleTimer() {
     const btn = document.getElementById('timer-btn');
-    if (isTimerRunning) { clearInterval(countdown); isTimerRunning = false; btn.innerText = "Resume"; }
-    else {
+    if (isTimerRunning) { 
+        clearInterval(countdown); 
+        isTimerRunning = false; 
+        btn.innerText = "Resume"; 
+    } else {
         if(timeLeft <= 0) return;
-        isTimerRunning = true; btn.innerText = "Pause";
-        countdown = setInterval(() => { timeLeft--; updateTimerDisplay(); if (timeLeft <= 0) { clearInterval(countdown); timerFinished(); } }, 1000);
+        isTimerRunning = true; 
+        btn.innerText = "Pause";
+        countdown = setInterval(() => { 
+            timeLeft--; 
+            updateTimerDisplay(); 
+            if (timeLeft <= 0) { 
+                clearInterval(countdown); 
+                timerFinished(); 
+            } 
+        }, 1000);
     }
 }
+
 function timerFinished() {
     new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg').play();
     window.speechSynthesis.speak(new SpeechSynthesisUtterance("Time is up!"));
     alert("⏰ Time is up!");
 }
 
-function resetTimer() { clearInterval(countdown); timeLeft = 0; isTimerRunning = false; updateTimerDisplay(); document.getElementById('timer-btn').innerText = "Start Countdown"; }
-function closeModal() { resetTimer(); window.speechSynthesis.cancel(); if(recognition) recognition.stop(); document.getElementById('recipe-modal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+function resetTimer() { 
+    clearInterval(countdown); 
+    timeLeft = 0; 
+    isTimerRunning = false; 
+    updateTimerDisplay(); 
+    const btn = document.getElementById('timer-btn');
+    if(btn) btn.innerText = "Start Countdown"; 
+}
 
-// --- CHECKLIST & SMART SHOPPING ---
+function closeModal() { 
+    resetTimer(); 
+    window.speechSynthesis.cancel(); 
+    if(recognition) recognition.stop(); 
+    document.getElementById('recipe-modal').style.display = 'none'; 
+    document.body.style.overflow = 'auto'; 
+}
+
 function toggleIngredient(el) {
     const cb = el.querySelector('input');
     cb.checked = !cb.checked;
@@ -253,7 +279,7 @@ function shareMissingIngredients(mealName) {
         if (!item.querySelector('input').checked) missing.push(item.innerText.trim());
     });
     if (missing.length === 0) {
-        window.speechSynthesis.speak(new SpeechSynthesisUtterance("You have everything with you! Let's begin."));
+        window.speechSynthesis.speak(new SpeechSynthesisUtterance("You have everything with you!"));
         alert("✅ You have everything!");
     } else {
         const text = `🛒 *Shopping List for ${mealName}*:\n\nMissing:\n- ${missing.join('\n- ')}`;
