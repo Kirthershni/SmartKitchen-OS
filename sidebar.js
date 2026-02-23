@@ -1,16 +1,18 @@
 function injectSidebar() {
-    // Logic to detect if we are in a subfolder
     const path = window.location.pathname;
-    const isSub = path.includes('/DnaLab/') || 
-                  path.includes('/budgetPlanner/') || 
-                  path.includes('/moodStudio/') || 
-                  path.includes('/mutationArchive/') || 
-                  path.includes('/myRecipes/') || 
-                  path.includes('/timeWrap/') || 
-                  path.includes('/firelessFlow/') || 
-                  path.includes('/beveragesBar/'); 
     
-    const prefix = isSub ? '../' : './';
+    // Check if we are currently inside any subfolder
+    // This looks for the folder names in your URL bar
+    const subfolders = [
+        'DnaLab', 'budgetPlanner', 'moodStudio', 'mutationArchive', 
+        'myRecipes', 'timeWrap', 'firelessFlow', 'beveragesBar', 'bmi'
+    ];
+    
+    const isSub = subfolders.some(folder => path.includes('/' + folder + '/'));
+    
+    // If we are in a subfolder, we need '../' to get out. 
+    // If we are in the root (index.html), we need nothing or './'
+    const prefix = isSub ? '../' : '';
 
     const html = `
         <div class="sidebar-header">
@@ -25,11 +27,11 @@ function injectSidebar() {
                 <li onclick="location.href='${prefix}DnaLab/lab.html'" class="nav-item">🧬 <span>DNA Lab</span></li>
                 <li onclick="location.href='${prefix}moodStudio/studio.html'" class="nav-item">🎭 <span>Mood Studio</span></li>
                 <li onclick="location.href='${prefix}budgetPlanner/budget.html'" class="nav-item">💰 <span>Budget Planner</span></li>
-                <li onclick="location.href='${prefix}myRecipes/recipes.html'" class="nav-item">👨‍🍳 <span>My Kitchen</span></li>
                 <li onclick="location.href='${prefix}mutationArchive/mutation.html'" class="nav-item">👽 <span>Mutation Archive</span></li>
                 <li onclick="location.href='${prefix}timeWrap/time.html'" class="nav-item">⏰ <span>Time Warp</span></li>
                 <li onclick="location.href='${prefix}firelessFlow/fireless.html'" class="nav-item">🧯 <span>Fireless Flow</span></li>
                 <li onclick="location.href='${prefix}beveragesBar/beverages.html'" class="nav-item">🍷 <span>Beverages Bar</span></li>
+                <li onclick="location.href='${prefix}bmi/index.html'" class="nav-item">🏃‍♂️ <span>Fitness Planner</span></li>
             </ul>
         </nav>
 
@@ -50,7 +52,8 @@ function injectSidebar() {
 }
 
 function toggleSidebar() {
-    document.getElementById('sidebar-container').classList.toggle('collapsed');
+    const container = document.getElementById('sidebar-container');
+    if (container) container.classList.toggle('collapsed');
 }
 
 document.addEventListener('DOMContentLoaded', injectSidebar);
