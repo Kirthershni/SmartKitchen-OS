@@ -13,7 +13,7 @@
     <div class="main-wrapper">
         <header class="mutation-header">
             <h1 class="logo">Mutation<span>Archive</span></h1>
-            <p>Select a base recipe and choose a transformation strain.</p>
+            <p>Mathematical Recipe Scaling & Transformation</p>
         </header>
 
         <section class="chamber-container">
@@ -21,8 +21,8 @@
                 <div class="alien-avatar">👽</div>
                 
                 <div class="search-row">
-                    <input type="text" id="mutation-search" placeholder="Enter Base Dish (e.g. Pasta, Chicken, Rice)">
-                    <button onclick="fetchBaseForMutation()" class="btn-scan-neon">LOAD DNA</button>
+                    <input type="text" id="mutation-search" placeholder="Enter Base Dish..." onkeydown="if(event.key==='Enter') fetchBaseForMutation()">
+                    <button onclick="fetchBaseForMutation()" class="btn-scan-neon">DECODE DNA</button>
                 </div>
 
                 <div class="strain-selector">

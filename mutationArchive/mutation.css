@@ -24,6 +24,7 @@
     color: white;
     border-radius: 12px 0 0 12px;
     outline: none;
+    font-size: 1rem;
 }
 
 .btn-scan-neon {
@@ -33,22 +34,26 @@
     padding: 0 30px;
     border-radius: 0 12px 12px 0;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 700;
+    transition: 0.3s;
 }
 
-/* Strain Selector Styling */
-.strain-selector p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px; }
+.btn-scan-neon:hover {
+    background: #9333ea;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+}
 
 .strain-chips { display: flex; justify-content: center; gap: 15px; }
 
 .strain-chip {
-    padding: 10px 25px;
+    padding: 12px 30px;
     border-radius: 50px;
     background: rgba(255,255,255,0.05);
     color: white;
     border: 1px solid #334155;
     cursor: pointer;
     transition: 0.3s;
+    font-weight: 600;
 }
 
 .strain-chip.active {
@@ -57,5 +62,11 @@
     box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
 }
 
-/* Spacing Cards */
+/* Modal Recalculated Text */
+.mutated-qty {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    margin-right: 5px;
+}
+
 .recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 40px; }

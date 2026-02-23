@@ -6,7 +6,9 @@ function injectSidebar() {
                   path.includes('/moodStudio/') || 
                   path.includes('/mutationArchive/') || 
                   path.includes('/myRecipes/') || 
-                  path.includes('/timeWrap/'); // Matches your folder name
+                  path.includes('/timeWrap/') || 
+                  path.includes('/firelessFlow/') || 
+                  path.includes('/beveragesBar/'); 
     
     const prefix = isSub ? '../' : './';
 
@@ -26,6 +28,8 @@ function injectSidebar() {
                 <li onclick="location.href='${prefix}myRecipes/recipes.html'" class="nav-item">👨‍🍳 <span>My Kitchen</span></li>
                 <li onclick="location.href='${prefix}mutationArchive/mutation.html'" class="nav-item">👽 <span>Mutation Archive</span></li>
                 <li onclick="location.href='${prefix}timeWrap/time.html'" class="nav-item">⏰ <span>Time Warp</span></li>
+                <li onclick="location.href='${prefix}firelessFlow/fireless.html'" class="nav-item">🧯 <span>Fireless Flow</span></li>
+                <li onclick="location.href='${prefix}beveragesBar/beverages.html'" class="nav-item">🍷 <span>Beverages Bar</span></li>
             </ul>
         </nav>
 
