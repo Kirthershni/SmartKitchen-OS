@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Hub | Fitness Planner</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <aside id="sidebar-container"></aside>
+
+    <div class="main-wrapper">
+        <header>
+            <div id="mood-status" class="mood-status"></div>
+            <h1 class="logo">Fitness<span>Planner</span></h1>
+            
+            <a href="#" class="btn-my-kitchen">My Kitchen</a>
+        </header>
+
+        <main>
+            <h2 style="margin-bottom: 30px;">Body Mass Index Calculator</h2>
+            
+            <div class="calculator-container">
+                <div class="calculator-card">
+                    <p>Enter your details below to calculate your BMI and get recommendations.</p>
+                    
+                    <div class="input-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="e.g. 70" step="0.1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" placeholder="e.g. 175">
+                    </div>
+
+                    <button onclick="calculateBMI()" class="btn-calc">Calculate BMI</button>
+
+                    <div id="result-display" class="result-display hidden">
+                        <h3>Your BMI Score: <span id="bmi-score">0.0</span></h3>
+                        <p id="bmi-category" style="font-weight: bold; font-size: 1.2rem; margin: 10px 0;"></p>
+                        
+                        <hr style="border: 0; border-top: 1px solid rgba(0,0,0,0.1); margin: 20px 0;">
+                        
+                        <h4 style="margin-bottom: 15px; color: #333;">Personalized Daily Meal Plan</h4>
+                        <div id="meal-recommendation"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../sidebar.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
