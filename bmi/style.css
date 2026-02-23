@@ -1,0 +1,191 @@
+/* ... Keep all your existing body, header, and logo styles exactly as they are ... */
+
+/* UPDATED DEFAULT COLOR TO MATCH YOUR RESET PALETTE */
+.logo span {
+    color: #a855f7; /* Purple */
+    transition: color 0.5s ease;
+    margin-left: 0;
+}
+
+/* IMPROVED RESULT DISPLAY FOR MEAL CARDS */
+.result-display {
+    margin-top: 25px;
+    padding: 25px;
+    background: #ffffff; /* Clean white background for the result area */
+    border-radius: 20px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+}
+
+/* NEW DISH CARD GRID SYSTEM (As seen in the screenshot) */
+.meal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns as per your request */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* THE IMPRESSIVE DISH CARD STYLE */
+.dish-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden; /* Clips the image to the card corners */
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.dish-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+/* THE DISH IMAGE */
+.dish-card img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover; /* Ensures photos look professional and cropped correctly */
+    border-right: 1px solid #f0f0f0;
+}
+
+/* TEXT INSIDE THE DISH CARD */
+.dish-info {
+    padding: 10px 15px;
+    text-align: left;
+}
+
+.dish-info span {
+    display: block;
+    font-size: 0.7rem;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.dish-info h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* BEVERAGE HIGHLIGHT STYLE (Matches Pink/Yellow accents) */
+.dish-card.highlight {
+    background: #fff9eb;
+    border: 1px solid #f1c40f;
+}
+
+/* ENHANCED BMI SCORE GRADIENT */
+#bmi-score {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #a855f7, #ec4899); /* Purple to Pink gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 480px) {
+    .meal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* --- Making the Input Groups "Smart" and Stylish --- */
+.input-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    transition: color 0.3s ease;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px;
+    background: #fdfdfd;
+    border: 2px solid #eee; /* Clean, subtle border */
+    border-radius: 12px; /* Smooth rounded corners */
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* When the user clicks into the box */
+.input-group input:focus {
+    outline: none;
+    border-color: #a855f7; /* Focus matches your Purple Default */
+    background: #fff;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);
+}
+
+.btn-calc {
+    width: 100%;
+    padding: 18px;
+    margin-top: 10px;
+    /* High-end gradient using your Gourmet Hub palette */
+    background: linear-gradient(135deg, #ff4b2b 0%, #ff8c00 100%);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    
+    /* Smooth transitions for all properties */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* Vibrant shadow that matches the button color */
+    box-shadow: 0 10px 20px rgba(255, 75, 43, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* The Hover Effect: It grows slightly and the shadow deepens */
+.btn-calc:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(255, 75, 43, 0.5);
+    background: linear-gradient(135deg, #ff5e3a 0%, #ff9d2e 100%);
+}
+
+/* The Click Effect: It physically pushes down */
+.btn-calc:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 5px 10px rgba(255, 75, 43, 0.4);
+}
+
+/* Adding a subtle "shimmer" effect to make it look active */
+.btn-calc::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(30deg);
+    transition: all 0.6s ease;
+}
+
+.btn-calc:hover::after {
+    left: 120%;
+}
+.dish-card img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+    display: block; /* Prevents tiny gaps at the bottom */
+}
