@@ -5,7 +5,7 @@ function injectSidebar() {
     // This looks for the folder names in your URL bar
     const subfolders = [
         'DnaLab', 'budgetPlanner', 'moodStudio', 'mutationArchive', 
-        'myRecipes', 'timeWrap', 'firelessFlow', 'beveragesBar', 'bmi'
+        'myRecipes', 'timeWrap', 'firelessFlow', 'beveragesBar', 'bmi','caloriehub','babyFood'
     ];
     
     const isSub = subfolders.some(folder => path.includes('/' + folder + '/'));
@@ -32,6 +32,8 @@ function injectSidebar() {
                 <li onclick="location.href='${prefix}firelessFlow/fireless.html'" class="nav-item">🧯 <span>Fireless Flow</span></li>
                 <li onclick="location.href='${prefix}beveragesBar/beverages.html'" class="nav-item">🍷 <span>Beverages Bar</span></li>
                 <li onclick="location.href='${prefix}bmi/index.html'" class="nav-item">🏃‍♂️ <span>Fitness Planner</span></li>
+                <li onclick="location.href='${prefix}bmi/nutrition.html'" class="nav-item">🏃‍♂️ <span>Calorie Hub</span></li>
+                <li onclick="location.href='${prefix}bmi/baby.html'" class="nav-item">🏃‍♂️ <span>Baby Food</span></li>
             </ul>
         </nav>
 
@@ -57,3 +59,4 @@ function toggleSidebar() {
 }
 
 document.addEventListener('DOMContentLoaded', injectSidebar);
+
