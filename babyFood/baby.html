@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Hub | Baby & Toddler Meals</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="baby.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <aside id="sidebar-container"></aside>
+
+    <div class="main-wrapper">
+        <header>
+            <div id="mood-status" class="mood-status"></div>
+            <div class="header-content">
+                <h1 class="baby-logo">Baby<span>Bites</span> Lab</h1>
+                <p>Gentle, nutritious, and easy-to-digest meal formulations.</p>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="baby-search" placeholder="Search baby meals (e.g., Apple, Puree, Porridge)...">
+                <button onclick="searchBabyMeals()">Search</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="filter-tabs">
+                <button onclick="filterBaby('Breakfast')" class="tab-btn active">Breakfast</button>
+                <button onclick="filterBaby('Dessert')" class="tab-btn">Soft Treats</button>
+                <button onclick="filterBaby('Side')" class="tab-btn">Sides & Purees</button>
+            </div>
+
+            <div id="recipe-grid" class="recipe-grid">
+                </div>
+        </main>
+    </div>
+
+    <div id="recipe-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="../sidebar.js"></script>
+    <script src="baby.js"></script>
+</body>
+</html>
