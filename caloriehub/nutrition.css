@@ -11,10 +11,10 @@ body {
     color: #333;
 }
 
-/* --- Content Layout --- */
+/* --- Content Layout (Full Width, No Sidebar) --- */
 .main-content {
     width: 100%; 
-    max-width: 1300px; /* Centered container for better readability */
+    max-width: 1300px; 
     margin: 0 auto;
     padding: 40px 20px;
 }
@@ -22,7 +22,6 @@ body {
 /* --- Header & Search --- */
 .header {
     margin-bottom: 50px;
-    text-align: left;
 }
 
 .header h1 {
@@ -39,7 +38,7 @@ body {
 .search-box {
     display: flex;
     gap: 15px;
-    max-width: 800px; /* Wider search bar for the full-width layout */
+    max-width: 800px;
     margin-top: 25px;
 }
 
@@ -50,7 +49,6 @@ body {
     border-radius: 12px;
     outline: none;
     font-size: 1rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
 
 .search-box button {
@@ -61,37 +59,27 @@ body {
     border-radius: 12px;
     cursor: pointer;
     font-weight: 600;
-    transition: background 0.3s;
 }
 
-.search-box button:hover {
-    background: #6a22c7;
-}
-
-/* --- Full Width Grid --- */
+/* --- Calorie Grid --- */
 .calorie-grid {
     display: grid;
-    /* Cards automatically adjust to fill the horizontal space */
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
     gap: 30px;
 }
 
-/* --- Calorie Cards --- */
 .cal-card {
     background: white;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
     cursor: pointer;
     position: relative;
-    border: 1px solid #fff;
 }
 
 .cal-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(125, 42, 232, 0.15);
-    border-color: #7d2ae8;
 }
 
 .cal-badge {
@@ -103,8 +91,6 @@ body {
     padding: 6px 14px;
     border-radius: 30px;
     font-size: 0.85rem;
-    font-weight: 600;
-    backdrop-filter: blur(4px);
     z-index: 2;
 }
 
@@ -118,12 +104,6 @@ body {
     padding: 20px;
 }
 
-.card-info h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #2d3436;
-}
-
 .macros-strip {
     display: flex;
     justify-content: space-between;
@@ -135,7 +115,8 @@ body {
     border-radius: 10px;
 }
 
-/* --- Full Analysis View (The Report) --- */
+/* --- ANALYSIS REPORT VIEW (Edited for Size/Scaling) --- */
+
 .back-btn {
     background: white;
     border: 2px solid #7d2ae8;
@@ -145,12 +126,6 @@ body {
     cursor: pointer;
     margin-bottom: 30px;
     font-weight: 600;
-    transition: all 0.3s;
-}
-
-.back-btn:hover {
-    background: #7d2ae8;
-    color: white;
 }
 
 .analysis-report {
@@ -162,42 +137,75 @@ body {
 
 .report-header {
     display: grid;
-    grid-template-columns: 1fr 350px;
+    /* Ratio: Image 40%, Label 60% */
+    grid-template-columns: 0.4fr 0.6fr; 
     gap: 40px;
+    align-items: start;
+    margin-bottom: 30px;
 }
 
 .report-img {
     width: 100%;
-    max-height: 500px;
+    /* Smaller picture height */
+    height: 350px; 
     object-fit: cover;
-    border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+/* --- Larger Nutrition Label Style --- */
 .nutrition-label {
-    border: 2px solid black;
-    padding: 20px;
+    border: 3px solid black;
+    padding: 25px;
     background: white;
-    height: fit-content;
+    min-width: 350px;
 }
 
 .label-title {
-    font-size: 2rem;
+    font-size: 2.2rem; /* Larger title */
     font-weight: 900;
     border-bottom: 12px solid black;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .label-row {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #000;
-    font-size: 1.1rem;
+    padding: 12px 0; /* More breathing room */
+    border-bottom: 2px solid #000;
+    font-size: 1.4rem; /* Significantly larger text */
 }
 
-.bold { font-weight: 900; }
+.label-row.bold {
+    font-size: 1.6rem; /* Extra emphasis */
+    font-weight: 900;
+}
+
+.label-disclaimer {
+    font-size: 0.9rem;
+    margin-top: 15px;
+    font-style: italic;
+    color: #555;
+}
+
+/* --- Molecular Components & Instructions --- */
+.report-body h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.ingredient-list {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.ingredient-list li {
+    font-size: 1.1rem;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
 
 .instruction-box {
     line-height: 1.8;
@@ -213,7 +221,7 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive adjustments */
+/* Mobile Responsiveness */
 @media (max-width: 900px) {
     .report-header {
         grid-template-columns: 1fr;
