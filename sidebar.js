@@ -5,7 +5,7 @@ function injectSidebar() {
     // This looks for the folder names in your URL bar
     const subfolders = [
         'DnaLab', 'budgetPlanner', 'moodStudio', 'mutationArchive', 
-        'myRecipes', 'timeWrap', 'firelessFlow', 'beveragesBar', 'bmi'
+        'myRecipes', 'timeWrap', 'firelessFlow', 'beveragesBar', 'bmi','caloriehub', 'babyfood'
     ];
     
     const isSub = subfolders.some(folder => path.includes('/' + folder + '/'));
@@ -60,5 +60,6 @@ function toggleSidebar() {
 }
 
 document.addEventListener('DOMContentLoaded', injectSidebar);
+
 
 
