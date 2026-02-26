@@ -5,28 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gourmet Hub | Calorie DNA Lab</title>
     <link rel="stylesheet" href="nutrition.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <main class="main-content">
-        <header class="header">
-            <div class="header-text">
-                <h1>Calorie DNA Lab</h1>
-                <p>Scanning molecular food data for nutritional optimization.</p>
-            </div>
-            
-            <div class="search-box">
-                <input type="text" id="cal-search" placeholder="Scan food (e.g., Chicken, Pasta, Cake)...">
-                <button onclick="scanFoodDNA()">Start Scan</button>
+    <aside id="sidebar-container"></aside>
+
+    <div class="main-wrapper">
+        <header class="zeroheat-header">
+            <div id="mood-status" class="mood-status"></div>
+
+            <div class="header-content">
+                <h1 class="logo">Calorie<span>DNA Lab</span></h1>
+                <p class="subtitle">Scanning molecular food data for nutritional optimization.</p>
+                
+                <div class="search-pill-box">
+                    <div class="search-pill">
+                        <input type="text" id="cal-search" placeholder="Search (e.g. Salad, Wrap, Sandwich)...">
+                        <button onclick="scanFoodDNA()" class="btn-scan">SCAN DNA</button>
+                    </div>
+                    <p class="scanning-status">Scrubbing instructions for thermal signatures...</p>
+                </div>
             </div>
         </header>
 
-        <div id="display-area">
-            <div id="calorie-grid" class="calorie-grid"></div>
-        </div>
-    </main>
+        <main class="content-panel">
+            <div id="display-area">
+                <div id="calorie-grid" class="calorie-grid"></div>
+            </div>
+        </main>
+    </div>
 
-    <script src="nutrition.js"></script>
+    <script src="../sidebar.js"></script> <script src="nutrition.js"></script>
 </body>
 </html>
