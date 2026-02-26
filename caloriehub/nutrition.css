@@ -1,229 +1,166 @@
-/* --- Global Reset --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+:root {
+    --accent: #a855f7;        /* Purple */
+    --sidebar-color: #4840a1;
+    --bg-light: #f8fafc;
+    --teal-dna: #14b8a6;      /* Signature ZeroHeat Teal */
+    --panel-white: #ffffff;
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: #f4f7fe;
-    color: #333;
-}
-
-/* --- Content Layout (Full Width, No Sidebar) --- */
-.main-content {
-    width: 100%; 
-    max-width: 1300px; 
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-/* --- Header & Search --- */
-.header {
-    margin-bottom: 50px;
-}
-
-.header h1 {
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: #1a1a1a;
-}
-
-.header p {
-    color: #666;
-    font-size: 1.1rem;
-}
-
-.search-box {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-light);
     display: flex;
-    gap: 15px;
-    max-width: 800px;
-    margin-top: 25px;
+    min-height: 100vh;
+    transition: background 0.5s ease;
 }
 
-.search-box input {
+/* --- Sidebar & Layout --- */
+#sidebar-container {
+    width: 260px;
+    background: var(--sidebar-color);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    transition: width 0.3s ease, background 0.5s ease;
+    z-index: 1000;
+}
+
+#sidebar-container.collapsed { width: 80px; }
+
+.main-wrapper {
     flex: 1;
-    padding: 15px 20px;
-    border: 1px solid #d1d9e6;
-    border-radius: 12px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* --- ZeroHeat Header Panel --- */
+.zeroheat-header {
+    background: var(--panel-white);
+    padding: 80px 20px;
+    border-radius: 40px;
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.logo span {
+    font-family: 'Poppins', sans-serif;
+    color: var(--accent);
+    font-weight: 400;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 40px;
+}
+
+/* --- Search Pill --- */
+.search-pill-box {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-pill {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 100px;
+    display: flex;
+    padding: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+.search-pill input {
+    flex: 1;
+    border: none;
+    padding: 0 25px;
     outline: none;
     font-size: 1rem;
+    background: transparent;
 }
 
-.search-box button {
-    padding: 0 30px;
-    background: #7d2ae8;
+.btn-scan {
+    background: var(--teal-dna);
     color: white;
     border: none;
-    border-radius: 12px;
+    padding: 12px 30px;
+    border-radius: 100px;
+    font-weight: 700;
     cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.scanning-status {
+    color: var(--teal-dna);
+    font-size: 0.8rem;
+    margin-top: 15px;
     font-weight: 600;
 }
 
-/* --- Calorie Grid --- */
+/* --- Content Grid Panel --- */
+.content-panel {
+    background: #f0fdfa; /* Light teal tint */
+    border-radius: 40px;
+    padding: 50px 30px;
+    min-height: 500px;
+}
+
 .calorie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
 }
 
 .cal-card {
     background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    position: relative;
-}
-
-.cal-card:hover {
-    transform: translateY(-10px);
-}
-
-.cal-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: rgba(0, 0, 0, 0.75);
-    color: white;
-    padding: 6px 14px;
     border-radius: 30px;
-    font-size: 0.85rem;
-    z-index: 2;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    transition: 0.4s ease;
+    cursor: pointer;
+    border: 1px solid #f1f5f9;
 }
 
-.cal-card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
+.cal-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
 
-.card-info {
-    padding: 20px;
-}
+.cal-card img { width: 100%; height: 220px; object-fit: cover; }
+
+.card-info { padding: 25px; }
 
 .macros-strip {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
-    color: #7d2ae8;
-    font-weight: 600;
-    background: #f8f1ff;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-/* --- ANALYSIS REPORT VIEW (Edited for Size/Scaling) --- */
-
-.back-btn {
-    background: white;
-    border: 2px solid #7d2ae8;
-    color: #7d2ae8;
-    padding: 10px 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-bottom: 30px;
-    font-weight: 600;
-}
-
-.analysis-report {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    animation: fadeIn 0.5s ease forwards;
-}
-
-.report-header {
-    display: grid;
-    /* Ratio: Image 40%, Label 60% */
-    grid-template-columns: 0.4fr 0.6fr; 
-    gap: 40px;
-    align-items: start;
-    margin-bottom: 30px;
-}
-
-.report-img {
-    width: 100%;
-    /* Smaller picture height */
-    height: 350px; 
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* --- Larger Nutrition Label Style --- */
-.nutrition-label {
-    border: 3px solid black;
-    padding: 25px;
-    background: white;
-    min-width: 350px;
-}
-
-.label-title {
-    font-size: 2.2rem; /* Larger title */
-    font-weight: 900;
-    border-bottom: 12px solid black;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.label-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0; /* More breathing room */
-    border-bottom: 2px solid #000;
-    font-size: 1.4rem; /* Significantly larger text */
-}
-
-.label-row.bold {
-    font-size: 1.6rem; /* Extra emphasis */
-    font-weight: 900;
-}
-
-.label-disclaimer {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 700;
     margin-top: 15px;
-    font-style: italic;
-    color: #555;
+    padding-top: 15px;
+    border-top: 1px solid #f1f5f9;
 }
 
-/* --- Molecular Components & Instructions --- */
-.report-body h2 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-}
-
-.ingredient-list {
-    list-style: none;
-    margin-bottom: 30px;
-}
-
-.ingredient-list li {
-    font-size: 1.1rem;
-    padding: 5px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.instruction-box {
-    line-height: 1.8;
-    color: #444;
-    background: #fff;
-    padding: 30px;
-    border-radius: 15px;
-    border: 1px solid #e0e0e0;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Mobile Responsiveness */
-@media (max-width: 900px) {
-    .report-header {
-        grid-template-columns: 1fr;
-    }
+/* --- Mood System Toast --- */
+.mood-status {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: none;
 }
