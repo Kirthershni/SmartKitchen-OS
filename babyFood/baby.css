@@ -1,0 +1,62 @@
+:root {
+    --baby-blue: #bae6fd;
+    --baby-pink: #fbcfe8;
+    --soft-green: #dcfce7;
+    --baby-accent: #0ea5e9;
+}
+
+.baby-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.baby-logo span {
+    color: var(--baby-accent);
+}
+
+/* Tab Styling */
+.filter-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 2px solid var(--baby-blue);
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background: var(--baby-blue);
+    color: #0369a1;
+}
+
+/* Card Customization */
+.recipe-card {
+    border: 2px solid transparent;
+}
+
+.recipe-card:hover {
+    border-color: var(--baby-blue);
+    background: var(--soft-green);
+}
+
+/* Label for Baby Friendly Meals */
+.baby-tag {
+    background: var(--soft-green);
+    color: #166534;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-top: 5px;
+}
