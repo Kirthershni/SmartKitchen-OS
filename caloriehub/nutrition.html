@@ -9,30 +9,24 @@
 </head>
 <body>
 
-    <div class="app-container">
-        <aside id="sidebar-container"></aside>
-
-        <main class="main-content">
-            <header class="header">
-                <div class="header-text">
-                    <h1>Calorie DNA Lab</h1>
-                    <p>Scanning molecular food data for nutritional optimization.</p>
-                </div>
-                
-                <div class="search-box">
-                    <input type="text" id="cal-search" placeholder="Scan food (e.g., Beef, Chicken, Pasta)...">
-                    <button onclick="scanFoodDNA()">Start Scan</button>
-                </div>
-            </header>
-
-            <div id="display-area">
-                <div id="calorie-grid" class="calorie-grid">
-                    </div>
+    <main class="main-content">
+        <header class="header">
+            <div class="header-text">
+                <h1>Calorie DNA Lab</h1>
+                <p>Scanning molecular food data for nutritional optimization.</p>
             </div>
-        </main>
-    </div>
+            
+            <div class="search-box">
+                <input type="text" id="cal-search" placeholder="Scan food (e.g., Chicken, Pasta, Cake)...">
+                <button onclick="scanFoodDNA()">Start Scan</button>
+            </div>
+        </header>
 
-    <script src="../sidebar.js"></script>
+        <div id="display-area">
+            <div id="calorie-grid" class="calorie-grid"></div>
+        </div>
+    </main>
+
     <script src="nutrition.js"></script>
 </body>
 </html>
