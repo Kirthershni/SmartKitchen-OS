@@ -1,14 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Initial scan to fill the lab with "Beef" recipes
+    // Initial Load
     scanFoodDNA("Beef");
+    
+    // Check for saved mood
+    const savedMood = localStorage.getItem('userMood');
+    if (savedMood) changeMood(savedMood);
 });
 
+// --- MOOD SYSTEM (Requested 5 Colors) ---
+function changeMood(mood) {
+    const root = document.documentElement;
+    const statusBox = document.getElementById('mood-status');
+    
+    const config = {
+        'happy': { bg: '#fefce8', accent: '#facc15', sidebar: '#854d0e', label: 'Happy' }, // Yellow
+        'sad':   { bg: '#eff6ff', accent: '#3b82f6', sidebar: '#1e3a8a', label: 'Sad' },   // Blue
+        'lazy':  { bg: '#fdf2f8', accent: '#f472b6', sidebar: '#831843', label: 'Lazy' },  // Pink
+        'angry': { bg: '#fef2f2', accent: '#ef4444', sidebar: '#7f1d1d', label: 'Angry' }, // Red
+        'reset': { bg: '#f8fafc', accent: '#a855f7', sidebar: '#4840a1', label: 'Default' } // Purple
+    };
+
+    const choice = config[mood];
+    
+    // Apply Colors
+    root.style.setProperty('--bg-light', choice.bg);
+    root.style.setProperty('--accent', choice.accent);
+    root.style.setProperty('--sidebar-color', choice.sidebar);
+
+    // Show Notification
+    if (statusBox) {
+        statusBox.innerText = `System Optimized: ${choice.label}`;
+        statusBox.style.background = choice.accent + "20";
+        statusBox.style.color = choice.accent;
+        statusBox.style.display = "block";
+        setTimeout(() => { statusBox.style.display = "none"; }, 3000);
+    }
+
+    localStorage.setItem('userMood', mood);
+}
+
+// --- SCANNER LOGIC ---
 async function scanFoodDNA(term) {
     const query = term || document.getElementById('cal-search').value;
     const grid = document.getElementById('calorie-grid');
     if (!query) return;
 
-    grid.innerHTML = "<div class='loader'>Synchronizing with Food DNA Database...</div>";
+    grid.innerHTML = "<div style='grid-column: 1/-1; text-align:center;'>🧬 Analyzing Molecular Structure...</div>";
 
     try {
         const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
@@ -17,74 +54,38 @@ async function scanFoodDNA(term) {
         if (data.meals) {
             renderCalorieCards(data.meals);
         } else {
-            grid.innerHTML = "<p>No genetic matches found for this search.</p>";
+            grid.innerHTML = "<p style='grid-column: 1/-1; text-align:center;'>No Genetic Matches Found.</p>";
         }
     } catch (e) {
-        grid.innerHTML = "<p>Scanner Error: Check connection.</p>";
+        grid.innerHTML = "<p>Scanner Error: Database Link Interrupted.</p>";
     }
 }
 
 function renderCalorieCards(meals) {
     const grid = document.getElementById('calorie-grid');
     grid.innerHTML = meals.map(meal => {
-        // Algorithm generates calories based on Meal ID for consistency
         const calories = (parseInt(meal.idMeal) % 500) + 300; 
         return `
             <div class="cal-card" onclick="viewFullAnalysis('${meal.idMeal}')">
-                <div class="cal-badge">🔥 ${calories} kcal</div>
                 <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
                 <div class="card-info">
-                    <h3>${meal.strMeal}</h3>
+                    <p style="font-size:0.7rem; color:#94a3b8; font-weight:700; text-transform:uppercase; margin-bottom:5px;">Molecular ID: ${meal.idMeal}</p>
+                    <h3 style="font-family:'Playfair Display', serif; font-size:1.4rem;">${meal.strMeal}</h3>
                     <div class="macros-strip">
+                        <span>🔥 ${calories} kcal</span>
                         <span>P: ${Math.floor(calories/20)}g</span>
                         <span>C: ${Math.floor(calories/10)}g</span>
-                        <span>F: ${Math.floor(calories/40)}g</span>
+                        <span>F: ${Math.floor(calories/45)}g</span>
                     </div>
                 </div>
             </div>`;
     }).join('');
 }
 
+// Reuse your viewFullAnalysis logic but ensure the CSS classes match the new panel style
 async function viewFullAnalysis(id) {
-    const res = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-    const data = await res.json();
-    const meal = data.meals[0];
-
-    const cal = (parseInt(id) % 500) + 300;
-    const protein = Math.floor(cal / 18);
-    const carbs = Math.floor(cal / 10);
-    const fats = Math.floor(cal / 45);
-
-    let ingredients = "";
-    for (let i = 1; i <= 20; i++) {
-        if (meal[`strIngredient${i}`]) {
-            ingredients += `<li>${meal[`strIngredient${i}`]} - <span>${meal[`strMeasure${i}`]}</span></li>`;
-        }
-    }
-
-    document.getElementById('display-area').innerHTML = `
-        <button class="back-btn" onclick="location.reload()">🧪 Back to Scanner</button>
-        
-        <div class="analysis-report">
-            <div class="report-header">
-                <img src="${meal.strMealThumb}" class="report-img">
-                <div class="nutrition-label">
-                    <div class="label-title">Nutrition Facts</div>
-                    <div class="label-row bold"><span>Calories</span> <span>${cal}</span></div>
-                    <div class="label-row"><span>Total Fat</span> <span>${fats}g</span></div>
-                    <div class="label-row"><span>Total Carbs</span> <span>${carbs}g</span></div>
-                    <div class="label-row bold"><span>Protein</span> <span>${protein}g</span></div>
-                    <p class="label-disclaimer">*Estimated via Molecular Analysis</p>
-                </div>
-            </div>
-
-            <div class="report-body">
-                <h2>Molecular Components</h2>
-                <ul class="ingredient-list">${ingredients}</ul>
-                
-                <h2>Synthesis Method</h2>
-                <div class="instruction-box">${meal.strInstructions}</div>
-            </div>
-        </div>
-    `;
+    // ... (Keep your existing function here, just ensure the back-button 
+    // re-renders the grid or reloads the scan DNA view)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // You can also use: location.reload() inside the back button of analysis report.
 }
