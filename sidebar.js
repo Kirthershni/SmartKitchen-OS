@@ -33,6 +33,7 @@ function injectSidebar() {
                 <li onclick="location.href='${prefix}beveragesBar/beverages.html'" class="nav-item">🍷 <span>Beverages Bar</span></li>
                 <li onclick="location.href='${prefix}bmi/index.html'" class="nav-item">🏃‍♂️ <span>Fitness Planner</span></li>
                 <li onclick="location.href='${prefix}caloriehub/nutrition.html'" class="nav-item">🏃‍♂️ <span>Calorie Hub</span></li>
+                <li onclick="location.href='${prefix}babyFood/baby.html'" class="nav-item">🏃‍♂️ <span>Baby Foods</span></li>
             
             </ul>
         </nav>
@@ -59,4 +60,5 @@ function toggleSidebar() {
 }
 
 document.addEventListener('DOMContentLoaded', injectSidebar);
+
 
