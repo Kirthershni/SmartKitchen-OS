@@ -1,17 +1,15 @@
 function injectSidebar() {
     const path = window.location.pathname;
     
-    // Check if we are currently inside any subfolder
-    // This looks for the folder names in your URL bar
+    // Exact folder names from your repository
     const subfolders = [
-        'DnaLab', 'budgetPlanner', 'moodStudio', 'mutationArchive', 
-        'myRecipes', 'timeWrap', 'firelessFlow', 'beveragesBar', 'bmi','caloriehub', 'babyfood'
+        'DnaLab', 'babyFood', 'beveragesBar', 'bmi', 
+        'budgetPlanner', 'caloriehub', 'firelessFlow', 
+        'moodStudio', 'mutationArchive', 'myRecipes', 'timeWrap'
     ];
     
-    const isSub = subfolders.some(folder => path.includes('/' + folder + '/'));
-    
-    // If we are in a subfolder, we need '../' to get out. 
-    // If we are in the root (index.html), we need nothing or './'
+    // Check if current path includes any of these folders
+    const isSub = subfolders.some(folder => path.includes(folder));
     const prefix = isSub ? '../' : '';
 
     const html = `
@@ -32,9 +30,8 @@ function injectSidebar() {
                 <li onclick="location.href='${prefix}firelessFlow/fireless.html'" class="nav-item">🧯 <span>Fireless Flow</span></li>
                 <li onclick="location.href='${prefix}beveragesBar/beverages.html'" class="nav-item">🍷 <span>Beverages Bar</span></li>
                 <li onclick="location.href='${prefix}bmi/index.html'" class="nav-item">🏃‍♂️ <span>Fitness Planner</span></li>
-                <li onclick="location.href='${prefix}caloriehub/nutrition.html'" class="nav-item">🏃‍♂️ <span>Calorie Hub</span></li>
-                <li onclick="location.href='${prefix}babyFood/baby.html'" class="nav-item">🏃‍♂️ <span>Baby Foods</span></li>
-            
+                <li onclick="location.href='${prefix}babyFood/baby.html'" class="nav-item">👶 <span>Baby Foods</span></li>
+                <li onclick="location.href='${prefix}caloriehub/nutrition.html'" class="nav-item">🔥 <span>Calorie Hub</span></li>
             </ul>
         </nav>
 
@@ -53,13 +50,3 @@ function injectSidebar() {
     const container = document.getElementById('sidebar-container');
     if (container) container.innerHTML = html;
 }
-
-function toggleSidebar() {
-    const container = document.getElementById('sidebar-container');
-    if (container) container.classList.toggle('collapsed');
-}
-
-document.addEventListener('DOMContentLoaded', injectSidebar);
-
-
-
