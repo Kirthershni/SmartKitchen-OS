@@ -1,62 +1,224 @@
-:root {
-    --baby-blue: #bae6fd;
-    --baby-pink: #fbcfe8;
-    --soft-green: #dcfce7;
-    --baby-accent: #0ea5e9;
+/* ============================================================
+   BABYBITES LAB - CORE STYLING
+   ============================================================ */
+
+/* --- Container & Layout --- */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
 }
 
-.baby-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    margin-bottom: 10px;
-}
-
-.baby-logo span {
-    color: var(--baby-accent);
-}
-
-/* Tab Styling */
-.filter-tabs {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-    justify-content: center;
-}
-
-.tab-btn {
-    padding: 10px 20px;
-    border-radius: 20px;
-    border: 2px solid var(--baby-blue);
-    background: white;
-    cursor: pointer;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.tab-btn.active, .tab-btn:hover {
-    background: var(--baby-blue);
-    color: #0369a1;
-}
-
-/* Card Customization */
+/* --- Recipe Cards --- */
 .recipe-card {
-    border: 2px solid transparent;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: 1px solid #f1f5f9;
 }
 
 .recipe-card:hover {
-    border-color: var(--baby-blue);
-    background: var(--soft-green);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-/* Label for Baby Friendly Meals */
+.recipe-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* --- Badges & Tags --- */
+.cal-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 5;
+    letter-spacing: 0.5px;
+}
+
 .baby-tag {
-    background: var(--soft-green);
-    color: #166534;
-    padding: 4px 8px;
-    border-radius: 5px;
+    background: #e0f2fe;
+    color: #0369a1;
     font-size: 0.7rem;
-    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-weight: 800;
     text-transform: uppercase;
     display: inline-block;
-    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+/* --- Card Content --- */
+.card-info {
+    padding: 15px;
+}
+
+.card-info h3 {
+    margin: 5px 0 12px 0;
+    font-size: 1.15rem;
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.macros-strip {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    background: #f8fafc;
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: #475569;
+}
+
+.macros-strip span b {
+    color: #7d2ae8; /* Matching your Lab's accent color */
+}
+
+/* --- Analysis Report (Modal) --- */
+.analysis-report {
+    padding: 10px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.back-btn {
+    background: #f1f5f9;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 20px;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: #e2e8f0;
+}
+
+/* --- The Scientific Nutrition Label --- */
+.nutrition-label {
+    border: 2px solid #000;
+    padding: 15px;
+    background: #fff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    min-width: 240px;
+}
+
+.label-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    border-bottom: 10px solid #000;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.label-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+    padding: 4px 0;
+    font-size: 0.9rem;
+}
+
+.label-row.bold {
+    font-weight: 800;
+    border-bottom: 4px solid #000;
+}
+
+.label-disclaimer {
+    font-size: 0.65rem;
+    margin-top: 8px;
+    font-style: italic;
+    line-height: 1.2;
+}
+
+/* --- Mom-Approved Body Content --- */
+.benefits-box {
+    background: #f0fdf4; /* Soft Growth Green */
+    border-left: 5px solid #22c55e;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    color: #166534;
+}
+
+.benefits-box strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.instruction-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 20px;
+    border-radius: 12px;
+    line-height: 1.7;
+    color: #334155;
+    margin-bottom: 25px;
+}
+
+.mom-tip {
+    background: #fff1f2; /* Soft Safety Pink */
+    padding: 15px;
+    border-radius: 12px;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #be123c;
+    text-align: center;
+    border: 1px dashed #fb7185;
+}
+
+/* --- Lists --- */
+.ingredient-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 25px 0;
+}
+
+.ingredient-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    color: #475569;
+    display: flex;
+    align-items: center;
+}
+
+.ingredient-list li::before {
+    content: "•";
+    color: #7d2ae8;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* --- Utility --- */
+.report-img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3 {
+    color: #0f172a;
+    font-weight: 800;
+    margin-bottom: 10px;
 }
