@@ -157,3 +157,26 @@ body {
 #sidebar-container {
     transition: width 0.3s ease, background-color 0.5s ease;
 }
+#sidebar-container {
+    width: 260px;
+    height: 100vh; /* Takes full height of the screen */
+    position: sticky; /* Stays in place while you scroll the main content */
+    top: 0;
+    
+    /* THE FIX: Allow internal scrolling */
+    overflow-y: auto; 
+    overflow-x: hidden;
+    
+    /* Optional: Hide scrollbar but keep functionality for a cleaner look */
+    scrollbar-width: thin; 
+    scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+/* For Chrome/Safari/Edge browsers to make the scrollbar look sleek */
+#sidebar-container::-webkit-scrollbar {
+    width: 6px;
+}
+#sidebar-container::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
