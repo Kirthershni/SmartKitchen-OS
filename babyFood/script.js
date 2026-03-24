@@ -1,38 +1,43 @@
+// --- INITIALIZATION: Runs as soon as the page loads ---
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Check if we are on the Baby Food page
     const recipeGrid = document.getElementById('recipe-grid');
 
     if (recipeGrid) {
-        console.log("Baby Food Lab Active: Fetching initial recipes...");
-        
-        // 2. Call your search function with a default keyword
-        // Using "Apple" or "Puree" usually gives great baby food results
-        searchBabyRecipes("Puree"); 
+        console.log("BabyBites Lab Active: Loading local database...");
+        // This shows all your 80+ meals immediately
+        renderBabyRecipes(babyMealsDB); 
     }
 
-    // 3. Restore any saved mood colors
+    // Restore any saved mood colors from LocalStorage
     const savedMood = localStorage.getItem('userMood');
     if (savedMood) {
-        changeMood(savedMood, false);
+        // This matches the applyMood function you have below
+        applyMood(savedMood);
     }
 });
 
-// Ensure your search function looks like this:
-async function searchBabyRecipes(query) {
-    const grid = document.getElementById('recipe-grid');
-    if (!grid) return;
+// --- SEARCH: Filters your local babyMealsDB list ---
+function searchBabyMeals() {
+    const searchInput = document.getElementById('baby-search');
+    if (!searchInput) return;
+    
+    const q = searchInput.value.toLowerCase();
+    const filtered = babyMealsDB.filter(m => 
+        m.name.toLowerCase().includes(q) || 
+        m.ingredients.some(ing => ing.toLowerCase().includes(q))
+    );
+    renderBabyRecipes(filtered);
+}
 
-    grid.innerHTML = "<p style='text-align:center;'>Loading baby-friendly meals...</p>";
+// --- CATEGORY FILTER: For Breakfast, Lunch, etc. ---
+function filterBaby(category, event) {
+    // UI Update for buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    if (event && event.target) event.target.classList.add('active');
 
-    try {
-        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
-        const data = await response.json();
-        
-        // This calls the same render function you used in script.js
-        renderRecipes(data.meals); 
-    } catch (error) {
-        grid.innerHTML = "<p>Error loading recipes.</p>";
-    }
+    // Filter your local database by category
+    const filtered = babyMealsDB.filter(m => m.cat === category);
+    renderBabyRecipes(filtered);
 }
 
 const babyMealsDB = [
