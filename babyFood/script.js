@@ -1,3 +1,40 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Check if we are on the Baby Food page
+    const recipeGrid = document.getElementById('recipe-grid');
+
+    if (recipeGrid) {
+        console.log("Baby Food Lab Active: Fetching initial recipes...");
+        
+        // 2. Call your search function with a default keyword
+        // Using "Apple" or "Puree" usually gives great baby food results
+        searchBabyRecipes("Puree"); 
+    }
+
+    // 3. Restore any saved mood colors
+    const savedMood = localStorage.getItem('userMood');
+    if (savedMood) {
+        changeMood(savedMood, false);
+    }
+});
+
+// Ensure your search function looks like this:
+async function searchBabyRecipes(query) {
+    const grid = document.getElementById('recipe-grid');
+    if (!grid) return;
+
+    grid.innerHTML = "<p style='text-align:center;'>Loading baby-friendly meals...</p>";
+
+    try {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
+        const data = await response.json();
+        
+        // This calls the same render function you used in script.js
+        renderRecipes(data.meals); 
+    } catch (error) {
+        grid.innerHTML = "<p>Error loading recipes.</p>";
+    }
+}
+
 const babyMealsDB = [
     // --- BREAKFAST (20) ---
     { id: 'b1', name: 'Apple & Cinnamon Mash', cat: 'Breakfast', age: '6m+', cal: 85, p: '1g', c: '21g', f: '0g', img: 'https://rachaelsgoodeats.com/wp-content/uploads/2020/11/230904_applesauce-21-1024x1536.jpg', benefits: 'High fiber for digestion.', ingredients: ['Apple', 'Cinnamon'], instructions: 'Steam and mash.' },
