@@ -1,224 +1,207 @@
-/* ============================================================
-   BABYBITES LAB - CORE STYLING
-   ============================================================ */
-
-/* --- Container & Layout --- */
-.recipe-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    padding: 20px 0;
+/* --- 1. Global Layout & Sidebar Fix --- */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f8fafc;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* --- Recipe Cards --- */
+#sidebar-container {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.main-wrapper {
+    flex: 1;
+    margin-left: 260px; /* Leaves room for fixed sidebar */
+    padding: 40px 60px;
+    display: block; /* Allows Grid to breathe properly */
+    min-width: 0;
+}
+
+/* --- 2. Header & Branding --- */
+header {
+    width: 100%;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Keeps logo/search near sidebar */
+    gap: 20px;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.logo span {
+    color: #4facfe;
+}
+
+/* --- 3. The "Attractive" Search Pill --- */
+.search-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 6px 6px 6px 22px; /* Extra padding on left for text */
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.search-container:focus-within {
+    border-color: #4facfe;
+    box-shadow: 0 10px 30px rgba(79, 172, 254, 0.1);
+}
+
+.search-container input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #475569;
+    background: transparent;
+}
+
+/* The Sleek Run Analysis Button */
+.search-container button {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(79, 172, 254, 0.3);
+}
+
+.search-container button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(79, 172, 254, 0.5);
+}
+
+/* --- 4. Category Filter Tabs --- */
+.filter-tabs {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.tab-btn {
+    border: 1px solid #e2e8f0;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.tab-btn.active {
+    background: #4facfe;
+    color: white;
+    border-color: #4facfe;
+    box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+    transform: translateY(-1px);
+}
+
+/* --- 5. Recipe Grid & Cards --- */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 30px;
+    width: 100%;
+}
+
 .recipe-card {
-    background: #ffffff;
+    background: white;
     border-radius: 20px;
     overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
     border: 1px solid #f1f5f9;
+    cursor: pointer;
 }
 
 .recipe-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px rgba(0,0,0,0.1);
 }
 
 .recipe-card img {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
 }
-
-/* --- Badges & Tags --- */
-.cal-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
-    color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    z-index: 5;
-    letter-spacing: 0.5px;
-}
-
-.baby-tag {
-    background: #e0f2fe;
-    color: #0369a1;
-    font-size: 0.7rem;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-weight: 800;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 8px;
-}
-
-/* --- Card Content --- */
-.card-info {
-    padding: 15px;
-}
-
-.card-info h3 {
-    margin: 5px 0 12px 0;
-    font-size: 1.15rem;
-    color: #1e293b;
-    font-weight: 700;
-}
-
-.macros-strip {
+/* 1. The Header: The 'Master Controller' for centering */
+header {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    background: #f8fafc;
-    padding: 8px 12px;
-    border-radius: 10px;
-    color: #475569;
-}
-
-.macros-strip span b {
-    color: #7d2ae8; /* Matching your Lab's accent color */
-}
-
-/* --- Analysis Report (Modal) --- */
-.analysis-report {
-    padding: 10px;
-    animation: fadeIn 0.4s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.back-btn {
-    background: #f1f5f9;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 600;
-    color: #475569;
-    margin-bottom: 20px;
-    transition: background 0.2s;
-}
-
-.back-btn:hover {
-    background: #e2e8f0;
-}
-
-/* --- The Scientific Nutrition Label --- */
-.nutrition-label {
-    border: 2px solid #000;
-    padding: 15px;
-    background: #fff;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    min-width: 240px;
-}
-
-.label-title {
-    font-size: 1.8rem;
-    font-weight: 900;
-    border-bottom: 10px solid #000;
-    margin-bottom: 5px;
-    line-height: 1;
-}
-
-.label-row {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #000;
-    padding: 4px 0;
-    font-size: 0.9rem;
-}
-
-.label-row.bold {
-    font-weight: 800;
-    border-bottom: 4px solid #000;
-}
-
-.label-disclaimer {
-    font-size: 0.65rem;
-    margin-top: 8px;
-    font-style: italic;
-    line-height: 1.2;
-}
-
-/* --- Mom-Approved Body Content --- */
-.benefits-box {
-    background: #f0fdf4; /* Soft Growth Green */
-    border-left: 5px solid #22c55e;
-    padding: 15px;
-    margin: 20px 0;
-    border-radius: 8px;
-    color: #166534;
-}
-
-.benefits-box strong {
-    display: block;
-    margin-bottom: 4px;
-}
-
-.instruction-box {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    padding: 20px;
-    border-radius: 12px;
-    line-height: 1.7;
-    color: #334155;
-    margin-bottom: 25px;
-}
-
-.mom-tip {
-    background: #fff1f2; /* Soft Safety Pink */
-    padding: 15px;
-    border-radius: 12px;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: #be123c;
+    flex-direction: column;
+    align-items: center; /* Centers all child elements horizontally */
+    justify-content: center;
     text-align: center;
-    border: 1px dashed #fb7185;
+    margin-bottom: 50px;
 }
 
-/* --- Lists --- */
-.ingredient-list {
-    list-style: none;
-    padding: 0;
-    margin: 15px 0 25px 0;
+/* 2. The Logo & Subtext: Ensuring they span the full width to center */
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 5px;
+    width: 100%;
 }
 
-.ingredient-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid #f1f5f9;
-    color: #475569;
+.molecular-text {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 35px;
+    width: 100%;
+}
+
+/* 3. The Search Bar: Resetting margins to allow auto-centering */
+.search-container {
     display: flex;
     align-items: center;
-}
-
-.ingredient-list li::before {
-    content: "•";
-    color: #7d2ae8;
-    font-weight: bold;
-    margin-right: 10px;
-}
-
-/* --- Utility --- */
-.report-img {
+    background: white;
+    padding: 6px;
+    border-radius: 50px;
+    border: 1px solid #4facfe; /* Matching your blue border in image_0cea09 */
+    box-shadow: 0 10px 30px rgba(79, 172, 254, 0.1);
     width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    max-width: 700px; /* Slightly wider for a 'Pro' look */
+    margin: 0 auto 20px auto; /* Centered with auto margins */
 }
 
-h2, h3 {
-    color: #0f172a;
-    font-weight: 800;
-    margin-bottom: 10px;
+/* 4. Filter Tabs: Center the row of buttons */
+.filter-tabs {
+    display: flex;
+    justify-content: center; /* Centers the tabs in the row */
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 30px;
 }
