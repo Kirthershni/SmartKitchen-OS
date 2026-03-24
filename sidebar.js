@@ -1,16 +1,16 @@
 function injectSidebar() {
     const path = window.location.pathname;
     
-    // Check if we are currently inside any subfolder
+    // 1. CRITICAL: This list MUST match your folder names exactly
     const subfolders = [
         'DnaLab', 'budgetPlanner', 'moodStudio', 'mutationArchive', 
         'myRecipes', 'timeWrap', 'firelessFlow', 'beveragesBar', 'bmi', 'babyFood'
     ];
     
-    // Improved check: handles GitHub repo names and local testing
-    const isSub = subfolders.some(folder => path.includes('/' + folder + '/'));
+    // Check if we are inside a subfolder
+    const isSub = subfolders.some(folder => path.includes('/' + folder));
     
-    // prefix is '../' if inside a folder, empty if at the root
+    // If we are in a subfolder, we need '../' to reach the root.
     const prefix = isSub ? '../' : '';
 
     const html = `
@@ -32,26 +32,24 @@ function injectSidebar() {
                 <li onclick="location.href='${prefix}beveragesBar/beverages.html'" class="nav-item">🍷 <span>Beverages Bar</span></li>
                 <li onclick="location.href='${prefix}bmi/index.html'" class="nav-item">🏃‍♂️ <span>Fitness Planner</span></li>
                 
-                <li onclick="location.href='${prefix}babyFood/index.html'" class="nav-item">👶 <span>Baby Food Lab</span></li>
+                <li onclick="location.href='${prefix}babyFood/index.html'" class="nav-item">🍼 <span>Baby Food</span></li>
             </ul>
         </nav>
 
-        <div class="mood-selector" style="margin-top:30px; text-align:center;">
-            <h4 style="color:white; font-size:0.8rem; margin-bottom:10px;">Cooking Mood?</h4>
-            <div class="mood-buttons" style="display:flex; gap:5px; justify-content:center;">
-                <button onclick="changeMood('happy')" title="Happy">😊</button>
-                <button onclick="changeMood('sad')" title="Sad">😢</button>
-                <button onclick="changeMood('lazy')" title="Lazy">🥱</button>
-                <button onclick="changeMood('angry')" title="Angry">🔥</button>
-                <button onclick="changeMood('reset')" title="Reset">🔄</button>
+        <div class="mood-selector">
+            <h4>Cooking Mood?</h4>
+            <div class="mood-buttons">
+                <button onclick="changeMood('happy')">😊</button>
+                <button onclick="changeMood('sad')">😢</button>
+                <button onclick="changeMood('lazy')">🥱</button>
+                <button onclick="changeMood('angry')">🔥</button>
+                <button onclick="changeMood('reset')">🔄</button>
             </div>
         </div>
     `;
     
     const container = document.getElementById('sidebar-container');
-    if (container) {
-        container.innerHTML = html;
-    }
+    if (container) container.innerHTML = html;
 }
 
 function toggleSidebar() {
@@ -59,5 +57,4 @@ function toggleSidebar() {
     if (container) container.classList.toggle('collapsed');
 }
 
-// Ensure the sidebar builds when the page is ready
 document.addEventListener('DOMContentLoaded', injectSidebar);
