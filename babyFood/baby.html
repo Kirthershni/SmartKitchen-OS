@@ -4,64 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BabyBites Lab | Molecular Nutrition</title>
+    <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="baby.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="lab-container">
-        
-        <header class="lab-header">
-            <h1>BabyBites <span class="accent">Lab</span></h1>
-            <p>Molecular Growth Analysis for 6m+ and 1yr+</p>
-        </header>
+    <aside id="sidebar-container"></aside>
 
-        <div class="lab-controls">
-            <div class="search-box">
-                <input type="text" 
-                       id="baby-search" 
-                       placeholder="Analyze ingredients (e.g. Apple, Chicken)..." 
-                       onkeyup="if(event.key === 'Enter') searchBabyMeals()">
-                
-                <button onclick="searchBabyMeals()" class="analyze-btn">
-                    Run Analysis
-                </button>
-            </div>
-
-            <div class="filter-tabs">
-                <button class="tab-btn active" onclick="filterBaby('Breakfast')">Breakfast</button>
-                <button class="tab-btn" onclick="filterBaby('Sides & Purees')">Sides & Purees</button>
-                <button class="tab-btn" onclick="filterBaby('Lunch/Dinner')">Lunch/Dinner</button>
-                <button class="tab-btn" onclick="filterBaby('Soft Treats')">Soft Treats</button>
-            </div>
-        </div>
-
-        <div id="recipe-grid" class="recipe-grid">
-            <div class="loading-state">Initializing Molecular Analysis...</div>
-        </div>
-
-    </div>
-
-    <div id="recipe-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-nav">
-                <span class="report-id">REPORT_NO: #BB-2026</span>
-                <span class="close" onclick="closeModal()">&times;</span>
-            </div>
+    <div class="main-wrapper" style="margin-left: 260px; padding: 40px; min-height: 100vh; transition: background 0.5s ease;">
+        <div class="lab-container">
             
-            <div id="modal-body">
+            <header class="lab-header" style="margin-bottom: 40px;">
+                <h1 style="font-family: 'Playfair Display'; font-size: 3rem; margin: 0;">BabyBites <span style="color: var(--accent);">Lab</span></h1>
+                <p style="color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">Molecular Growth Analysis Engine</p>
+            </header>
+
+           <div class="search-container">
+    <input type="text" id="baby-search" placeholder="Analyze ingredients (e.g. Apple, Oats)..." 
+           onkeyup="if(event.key === 'Enter') searchBabyMeals()">
+    <button onclick="searchBabyMeals()">Run Analysis</button>
+</div>
+
+
+            <div class="filter-tabs" style="display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap;">
+                <button class="tab-btn active" onclick="filterBaby('Breakfast', event)">Breakfast</button>
+                <button class="tab-btn" onclick="filterBaby('Sides & Purees', event)">Sides & Purees</button>
+                <button class="tab-btn" onclick="filterBaby('Lunch/Dinner', event)">Lunch/Dinner</button>
+                <button class="tab-btn" onclick="filterBaby('Soft Treats', event)">Soft Treats</button>
+            </div>
+
+            <div id="recipe-grid" class="recipe-grid">
                 </div>
-            
-            <div class="modal-footer">
-                <button class="action-btn print-btn" onclick="window.print()">
-                    🖨️ Print Analysis
-                </button>
-                <button class="action-btn close-btn" onclick="closeModal()">
-                    Close Report
-                </button>
-            </div>
         </div>
     </div>
 
+    <div id="recipe-modal" class="modal" style="display:none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);">
+        <div class="modal-content" style="background: white; margin: 5vh auto; padding: 40px; width: 85%; max-width: 1000px; border-radius: 30px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);">
+            <span style="position: absolute; right: 30px; top: 20px; font-size: 35px; cursor: pointer; color: #64748b;" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script src="script.js"></script> 
     <script src="baby.js"></script>
 </body>
 </html>
