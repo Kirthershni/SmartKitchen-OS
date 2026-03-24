@@ -162,22 +162,26 @@ function openBabyModal(id) {
 function closeModal() {
     document.getElementById('recipe-modal').style.display = 'none';
 }
-
-// 4. AUTO-INIT: Starts with an empty, clean slate
+// 4. AUTO-INIT: The important part for instant loading
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Get the grid element
     const grid = document.getElementById('recipe-grid');
     
-    // Instead of rendering all recipes, we show a welcome message
+    // 2. Set an empty/welcome message instead of showing all recipes
     if (grid) {
         grid.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 80px 20px; color: #64748b;">
-                <div style="font-size: 3rem; margin-bottom: 10px;">🧪</div>
-                <h2 style="font-family: 'Playfair Display'; color: #1e293b;">Ready for Analysis</h2>
-                <p>Select a category above to view Molecular Growth Recipes.</p>
+            <div style="grid-column: 1/-1; text-align: center; padding: 100px 20px; color: #64748b;">
+                <div style="font-size: 3.5rem; margin-bottom: 15px; opacity: 0.5;">🧪</div>
+                <h2 style="font-family: 'Playfair Display'; color: #1e293b; margin: 0;">Lab Standby</h2>
+                <p style="margin-top: 10px;">Select a molecular category above to begin analysis.</p>
             </div>`;
     }
 
-    // Apply saved mood (keep this)
+    // 3. APPLY SAVED MOOD (This keeps your colors working!)
     const savedMood = localStorage.getItem('userMood');
-    if (savedMood) applyMood(savedMood);
+    if (savedMood) {
+        console.log("Restoring Lab Mood:", savedMood);
+        applyMood(savedMood);
+    }
 });
+
