@@ -122,6 +122,35 @@ function filterBaby(category, event) {
     const filtered = babyMealsDB.filter(m => m.cat === category);
     renderBabyRecipes(filtered);
 }
+// --- MOOD BRIDGE: Connects Sidebar buttons to the Baby Lab ---
+window.changeMood = function(moodKey) {
+    console.log("Sidebar clicked mood:", moodKey);
+    applyMood(moodKey);
+};
+
+// Update your existing applyMood to be "Global"
+window.applyMood = function(moodKey) {
+    const config = moodConfigs[moodKey];
+    if (!config) return;
+
+    // 1. Save to memory so it stays when you refresh
+    localStorage.setItem('userMood', moodKey);
+
+    // 2. Apply colors to the whole document
+    document.documentElement.style.setProperty('--mood-bg', config.bg);
+    document.documentElement.style.setProperty('--mood-color', config.accent);
+    document.documentElement.style.setProperty('--mood-sidebar', config.sidebar);
+
+    // 3. Force the body background to update immediately
+    document.body.style.backgroundColor = config.bg;
+    
+    // 4. Handle Voice
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(config.voice);
+        window.speechSynthesis.speak(msg);
+    }
+};
 
 function applyMood(moodKey) {
     const config = moodConfigs[moodKey];
