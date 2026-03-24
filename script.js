@@ -1,13 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ONLY search for "Rice" if we are on the Home Page (index.html)
-    if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+    // 1. SELECT THE GRID
+    const recipeGrid = document.getElementById('recipe-grid');
+
+    // 2. ONLY AUTO-LOAD IF THE GRID EXISTS 
+    // This prevents errors on other pages (like baby.html) 
+    // and ensures it runs on the main Home Page.
+    if (recipeGrid) {
         searchRecipes("Rice"); 
     }
 
+    // 3. RESTORE MOOD
     const savedMood = localStorage.getItem('userMood');
-    if (savedMood) changeMood(savedMood, false);
+    if (savedMood) {
+        changeMood(savedMood, false);
+    }
 });
-
 
 // --- MOOD SYSTEM ---
 
