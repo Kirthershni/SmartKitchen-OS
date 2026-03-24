@@ -32,7 +32,7 @@ function injectSidebar() {
                 <li onclick="location.href='${prefix}beveragesBar/beverages.html'" class="nav-item">🍷 <span>Beverages Bar</span></li>
                 <li onclick="location.href='${prefix}bmi/index.html'" class="nav-item">🏃‍♂️ <span>Fitness Planner</span></li>
                 
-                <li onclick="location.href='${prefix}babyFood/baby.html'" class="nav-item">👶 <span>Baby Food Lab</span></li>
+                <li onclick="location.href='${prefix}babyFood/index.html'" class="nav-item">👶 <span>Baby Food Lab</span></li>
             </ul>
         </nav>
 
