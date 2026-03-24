@@ -114,6 +114,19 @@ function toggleSidebar() {
 
 }
 
+const sidebarContainer = document.getElementById('sidebar-container');
 
+if (sidebarContainer) {
+    sidebarContainer.innerHTML = `
+        <div class="sidebar-content">
+            <div class="nav-links">
+                <a href="/index.html" class="nav-item">🏠 Home</a>
+                <a href="/babyFood/baby.html" class="nav-item">👶 Baby Food Lab</a>
+                <a href="#" class="nav-item">🥗 Healthy Bites</a>
+                <a href="#" class="nav-item">🍱 Meal Planner</a>
+            </div>
+        </div>
+    `;
+}
 
 document.addEventListener('DOMContentLoaded', injectSidebar);
