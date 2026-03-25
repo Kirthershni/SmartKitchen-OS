@@ -103,25 +103,83 @@ body {
     transform: translateY(-2px);
 }
 
-/* --- 5. PANTRY & CARDS --- */
-.pantry-title {
-    text-align: center;
-    font-weight: 600;
-    color: var(--accent); /* Title matches mood */
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    margin-bottom: 20px;
+/* --- CLASSY PANTRY CHIPS --- */
+.pantry-line {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.ing-chip {
+    background: rgba(255, 255, 255, 0.6); /* Semi-transparent glass look */
+    backdrop-filter: blur(5px); /* Frosty effect */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 10px 22px;
+    border-radius: 12px; /* Less "bubbly", more modern */
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
 
 .ing-chip:hover {
+    background: white;
     border-color: var(--accent);
-    background: rgba(0, 0, 0, 0.02);
+    color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
 }
+
+/* --- CLASSY CLEAR BUTTON --- */
+.btn-clear-lab {
+    background: transparent;
+    color: #94a3b8; /* Soft slate gray */
+    border: 1px solid #e2e8f0;
+    padding: 12px 30px;
+    border-radius: 50px; /* Capsule shape for "System" buttons */
+    margin-top: 35px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-clear-lab:hover {
+    background: #fee2e2; /* Very soft red tint */
+    color: #ef4444; /* Red for "Clear/Delete" */
+    border-color: #fecaca;
+    transform: scale(1.05);
+}
+
+/* Adding a small 'X' icon effect to Clear button via CSS */
+.btn-clear-lab::before {
+    content: '✕';
+    font-size: 0.8rem;
+}
+
+/* --- THE DNA INPUT ZONE (Classy Container) --- */
+.dna-input-zone {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 50px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+    text-align: center;
+                                      }
 
 .match-badge {
     position: absolute;
