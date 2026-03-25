@@ -8,12 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <aside id="sidebar-container" class="sidebar collapsed"></aside>
+    <aside id="sidebar-container"></aside>
 
     <div class="main-wrapper">
         <header class="lab-header">
             <h1 class="logo">DNA<span>Lab</span></h1>
-            <p>Analyze your pantry's genetic potential.</p>
+            <p id="mood-status">Analyze your pantry's genetic potential.</p>
         </header>
 
         <section class="full-width-scan">
@@ -37,8 +37,7 @@
                         <div class="ing-chip" onclick="addToFridge('Bread')">🍞 Bread</div>
                         <div class="ing-chip" onclick="addToFridge('Butter')">🧈 Butter</div>
                         <div class="ing-chip" onclick="addToFridge('Capsicum')">🫑 Capsicum</div>
-
-                        </div>
+                    </div>
                 </div>
                 
                 <button onclick="clearFridge()" class="btn-clear-lab">Clear All Markers</button>
@@ -55,7 +54,8 @@
         </div>
     </div>
 
-    <script src="../sidebar.js"></script>
     <script src="lab_script.js"></script>
+    
+    <script src="../sidebar.js"></script>
 </body>
-</html>
+                </html>
