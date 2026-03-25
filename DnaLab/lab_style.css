@@ -1,9 +1,9 @@
-/* --- 1. GLOBAL LAYOUT & MOOD CONNECTION --- */
+/* --- 1. GLOBAL LAYOUT & MOOD SYNC --- */
 body {
     margin: 0;
     padding: 0;
     display: flex;
-    /* This variable is updated by your JS applyDNAMood function */
+    /* Uses the background color from JS, defaults to light gray */
     background-color: var(--mood-bg, #f1f5f9) !important; 
     font-family: 'Poppins', sans-serif;
     transition: background-color 0.5s ease;
@@ -16,6 +16,7 @@ body {
     left: 0;
     top: 0;
     z-index: 100;
+    /* Sidebar color now matches the mood theme */
     background-color: var(--mood-sidebar, #4840a1);
     transition: background-color 0.5s ease;
 }
@@ -28,42 +29,65 @@ body {
     transition: background-color 0.5s ease;
 }
 
-/* --- 2. THE MOOD-AWARE DNA LAB ELEMENTS --- */
-.lab-header h1 {
-    font-size: 2.2rem;
-    margin-bottom: 5px;
-    color: var(--accent, #1e293b); /* Titles follow the mood color */
+/* --- 2. HEADER & LOGO --- */
+.lab-header { text-align: center; padding: 10px 0 20px; }
+.lab-header h1 { font-size: 2.2rem; margin-bottom: 5px; }
+
+.logo span {
+    color: var(--accent, #a855f7); /* The "Lab" text changes color */
+    transition: color 0.5s ease;
 }
 
-/* DNA Hero Icon - Now glows with the current mood color */
+#mood-status {
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+/* --- 3. THE DNA HERO ICON --- */
 .dna-hero-icon {
     font-size: 5rem;
     margin-bottom: 30px;
     display: block;
     text-align: center;
-    /* Dynamic glow based on mood */
+    /* Icon glows with the current mood color */
     filter: drop-shadow(0 0 15px var(--accent)); 
     animation: dnaPulse 3s ease-in-out infinite;
 }
 
-.pantry-title {
-    text-align: center;
-    font-weight: 600;
-    color: var(--accent); /* Switches from purple to pink/yellow/blue */
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+@keyframes dnaPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
 }
 
-/* --- 3. DYNAMIC BUTTONS --- */
+/* --- 4. INPUTS & BUTTONS --- */
+.dna-input-zone {
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    width: 100%;
+    margin-bottom: 40px;
+    border: 1px solid #e2e8f0;
+}
+
+#fridge-input {
+    width: 100%;
+    padding: 18px 25px;
+    border-radius: 12px;
+    border: 2px solid #cbd5e1;
+    font-size: 1.1rem;
+    outline: none;
+    background: #f8fafc;
+    transition: border-color 0.3s;
+}
+
+#fridge-input:focus {
+    border-color: var(--accent); /* Focus ring matches mood */
+}
+
 .btn-primary-lab {
     width: 100%;
-    background: var(--accent); /* Automatically switches colors */
+    background: var(--accent); /* Primary button matches mood */
     color: white;
     border: none;
     padding: 18px;
@@ -75,43 +99,56 @@ body {
 }
 
 .btn-primary-lab:hover {
-    /* Subtle brightness boost instead of a hardcoded purple */
-    filter: brightness(1.1); 
+    filter: brightness(1.1); /* Subtle glow on hover */
     transform: translateY(-2px);
+}
+
+/* --- 5. PANTRY & CARDS --- */
+.pantry-title {
+    text-align: center;
+    font-weight: 600;
+    color: var(--accent); /* Title matches mood */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .ing-chip:hover {
     border-color: var(--accent);
-    background: #fdf4ff; /* You can leave this or use rgba(var(--accent-rgb), 0.1) */
+    background: rgba(0, 0, 0, 0.02);
 }
 
-/* --- 4. RECIPE CARDS & MODAL --- */
 .match-badge {
     position: absolute;
     top: 0;
     right: 0;
-    background: var(--accent); /* Badge color matches the mood */
+    background: var(--accent); /* Score badge matches mood */
     color: white;
     padding: 8px 15px;
     border-bottom-left-radius: 15px;
     font-weight: 700;
     font-size: 0.9rem;
-    z-index: 10;
 }
 
-#fridge-input:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(168, 85, 247, 0.1);
+.recipe-card {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
 }
 
-/* Keep your dnaPulse animation */
-@keyframes dnaPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+.recipe-card:hover {
+    transform: translateY(-5px);
 }
 
 /* Modal Headers */
 .recipe-section h3 {
-    color: var(--accent) !important;
-}
+    color: var(--accent);
+    }
