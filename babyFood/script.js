@@ -153,30 +153,46 @@ window.changeMood = function(moodKey) {
     applyMood(moodKey);
 };
 
+// --- DYNAMIC COLOR ENGINE ---
+window.changeMood = function(moodKey) {
+    console.log("Mood button clicked:", moodKey); // This will show in F12 console
+    applyMood(moodKey);
+};
+
 function applyMood(moodKey) {
     const config = moodConfigs[moodKey];
     if (!config) return;
 
-    // Save to memory
     localStorage.setItem('userMood', moodKey);
 
-    // Apply colors to CSS Variables
+    // 1. Update CSS Variables
     document.documentElement.style.setProperty('--mood-bg', config.bg);
     document.documentElement.style.setProperty('--mood-color', config.accent);
     document.documentElement.style.setProperty('--mood-sidebar', config.sidebar);
-    
-    // Force immediate background change for the lab
-    document.body.style.backgroundColor = config.bg;
-    const mainWrapper = document.querySelector('.main-wrapper');
-    if (mainWrapper) mainWrapper.style.backgroundColor = config.bg;
 
-    // Trigger the Lab Voice
+    // 2. FORCE CHANGE (The "Aggressive" Fix)
+    // We target every possible background container
+    const targets = [
+        document.body, 
+        document.querySelector('.main-wrapper'), 
+        document.querySelector('.lab-container')
+    ];
+
+    targets.forEach(el => {
+        if (el) {
+            el.style.backgroundColor = config.bg + " !important"; // Force it
+            el.style.background = config.bg; // Backup
+        }
+    });
+
+    // 3. Update the sidebar container specifically
+    const sidebar = document.getElementById('sidebar-container');
+    if (sidebar) sidebar.style.backgroundColor = config.sidebar;
+
+    // 4. Voice Feedback
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
-        const msg = new SpeechSynthesisUtterance(config.voice);
-        msg.pitch = 1.2; 
-        msg.rate = 0.9;
-        window.speechSynthesis.speak(msg);
+        window.speechSynthesis.speak(new SpeechSynthesisUtterance(config.voice));
     }
 }
 
