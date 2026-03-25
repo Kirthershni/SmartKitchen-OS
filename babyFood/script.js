@@ -236,8 +236,24 @@ function searchBabyMeals() {
 
 function openBabyModal(id) {
     const meal = babyMealsDB.find(m => m.id === id);
-    if (typeof speakMood === 'function') speakMood(`Analyzing ${meal.name}. This meal provides ${meal.benefits}`);
-    
+    if (!meal) return;
+
+    // --- 🎙️ AI VOICE ENGINE ---
+    if ('speechSynthesis' in window) {
+        // Stop the AI if it's already talking from a previous click
+        window.speechSynthesis.cancel(); 
+
+        const message = `Great choice! Analyzing ${meal.name}. This meal provides ${meal.benefits}`;
+        const speech = new SpeechSynthesisUtterance(message);
+        
+        // Lab Assistant Voice Settings
+        speech.pitch = 1.1; // Slightly higher/clearer pitch
+        speech.rate = 0.9;  // Steady, professional speed
+        
+        window.speechSynthesis.speak(speech);
+    }
+
+    // --- 🧬 MODAL UI UPDATE ---
     document.getElementById('modal-body').innerHTML = `
         <div style="display:flex; gap:25px; flex-wrap:wrap;">
             <img src="${meal.img}" style="width:100%; max-width:450px; border-radius:20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
@@ -260,8 +276,10 @@ function openBabyModal(id) {
         <h3 style="color:#1e293b;">Molecular Synthesis (Instructions)</h3>
         <p style="background:#f8fafc; padding:20px; border-radius:15px; border:1px solid #e2e8f0; color:#475569;">${meal.instructions}</p>
     `;
+    
     document.getElementById('recipe-modal').style.display = 'block';
 }
+
 
 function closeModal() {
     document.getElementById('recipe-modal').style.display = 'none';
