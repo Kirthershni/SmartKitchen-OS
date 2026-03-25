@@ -3,8 +3,10 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    background-color: #f8fafc;
+    /* CHANGE THIS LINE BELOW: Use the variable with a fallback */
+    background-color: var(--mood-bg, #f8fafc) !important; 
     font-family: 'Poppins', sans-serif;
+    transition: background-color 0.5s ease; /* Makes the color change smooth! */
 }
 
 #sidebar-container {
@@ -14,14 +16,18 @@ body {
     left: 0;
     top: 0;
     z-index: 100;
+    /* ADD THIS: So the sidebar color changes too */
+    background-color: var(--mood-sidebar, #4840a1); 
 }
 
 .main-wrapper {
     flex: 1;
-    margin-left: 260px; /* Leaves room for fixed sidebar */
+    margin-left: 260px;
     padding: 40px 60px;
-    display: block; /* Allows Grid to breathe properly */
+    display: block;
     min-width: 0;
+    /* CHANGE THIS: Ensures the main area follows the mood */
+    background-color: var(--mood-bg, transparent) !important;
 }
 
 /* --- 2. Header & Branding --- */
