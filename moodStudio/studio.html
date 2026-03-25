@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gourmet Hub | Mood Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../global.css">
     <link rel="stylesheet" href="studio.css">
 </head>
@@ -12,7 +13,7 @@
     <div class="main-wrapper">
         <header class="studio-header">
             <h1 class="logo">Mood<span>Studio</span></h1>
-            <p>How are you feeling? We'll match a recipe to your soul.</p>
+            <p id="mood-status">How are you feeling? We'll match a recipe to your soul.</p>
         </header>
 
         <section class="mood-selector">
@@ -31,9 +32,9 @@
                 <h3>Sad</h3>
                 <p>Warm, cozy comfort food</p>
             </div>
-            <div class="mood-card" onclick="fetchMood('tired')">
+            <div class="mood-card" onclick="fetchMood('lazy')">
                 <span class="emoji">😴</span>
-                <h3>Tired</h3>
+                <h3>Lazy</h3>
                 <p>Quick & easy low-effort meals</p>
             </div>
         </section>
@@ -42,10 +43,13 @@
     </div>
 
     <div id="recipe-modal" class="modal">
-        <div class="modal-content"><span class="close-modal" onclick="closeModal()">&times;</span><div id="modal-body"></div></div>
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
     </div>
 
-    <script src="../sidebar.js"></script>
     <script src="studio.js"></script>
+    <script src="../sidebar.js"></script>
 </body>
-</html>
+    </html>
