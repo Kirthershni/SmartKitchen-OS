@@ -13,7 +13,7 @@
     <div class="main-wrapper">
         <header class="warp-header">
             <h1 class="logo">Time<span>Warp</span></h1>
-            <p>Select a subject to begin voice-guided navigation.</p>
+            <p id="warp-mood-text">Select a subject to begin voice-guided navigation.</p>
         </header>
 
         <section class="warp-container">
@@ -28,17 +28,21 @@
                 <button class="back-to-search" onclick="resetWarp()">← Back to Search</button>
                 <div class="temporal-status"><span id="step-counter">0 / 0</span></div>
                 <div class="instruction-box"><h2 id="current-step-text">Synchronizing...</h2></div>
+                
                 <div class="warp-navigation">
                     <button onclick="warpBack()" class="nav-btn">REWIND</button>
                     <button onclick="repeatSpeech()" class="nav-btn play-btn">REPEAT</button>
                     <button onclick="warpForward()" class="nav-btn">NEXT</button>
                 </div>
-                <div class="timeline-container"><div id="timeline-progress" class="timeline-bar"></div></div>
+                
+                <div class="timeline-container">
+                    <div id="timeline-progress" class="timeline-bar"></div>
+                </div>
             </div>
         </section>
     </div>
 
-    <script src="../sidebar.js"></script>
     <script src="time.js"></script>
+    <script src="../sidebar.js"></script>
 </body>
-</html>
+                                                                              </html>
