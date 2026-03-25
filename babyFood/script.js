@@ -147,14 +147,28 @@ const moodConfigs = {
 };
 
 // --- DYNAMIC COLOR ENGINE ---
+// --- DYNAMIC COLOR ENGINE ---
+// This bridge connects your sidebar buttons to the logic below
+window.changeMood = function(moodKey) {
+    applyMood(moodKey);
+};
+
 function applyMood(moodKey) {
     const config = moodConfigs[moodKey];
     if (!config) return;
+
+    // Save to memory
+    localStorage.setItem('userMood', moodKey);
 
     // Apply colors to CSS Variables
     document.documentElement.style.setProperty('--mood-bg', config.bg);
     document.documentElement.style.setProperty('--mood-color', config.accent);
     document.documentElement.style.setProperty('--mood-sidebar', config.sidebar);
+    
+    // Force immediate background change for the lab
+    document.body.style.backgroundColor = config.bg;
+    const mainWrapper = document.querySelector('.main-wrapper');
+    if (mainWrapper) mainWrapper.style.backgroundColor = config.bg;
 
     // Trigger the Lab Voice
     if ('speechSynthesis' in window) {
@@ -165,6 +179,7 @@ function applyMood(moodKey) {
         window.speechSynthesis.speak(msg);
     }
 }
+
 // --- CORE FUNCTIONS ---
 
 function renderBabyRecipes(meals) {
@@ -238,6 +253,24 @@ function closeModal() {
 }
 
 // Auto-init
+// --- INITIALIZATION: Runs as soon as the page loads ---
 document.addEventListener('DOMContentLoaded', () => {
-    renderBabyRecipes(babyMealsDB);
-}); 
+    const grid = document.getElementById('recipe-grid');
+
+    // 1. Start with an empty Lab Slate
+    if (grid) {
+        grid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 100px 20px; color: #64748b;">
+                <div style="font-size: 3.5rem; margin-bottom: 15px; opacity: 0.5;">🧪</div>
+                <h2 style="font-family: 'Playfair Display'; color: #1e293b; margin: 0;">Lab Standby</h2>
+                <p style="margin-top: 10px;">Select a molecular category above to begin analysis.</p>
+            </div>`;
+    }
+
+    // 2. Restore any saved mood colors from LocalStorage
+    const savedMood = localStorage.getItem('userMood');
+    if (savedMood) {
+        applyMood(savedMood);
+    }
+});
+
