@@ -1,3 +1,49 @@
+/* --- 1. GLOBAL LAYOUT & MOOD SYNC --- */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* Uses the variable from JS, defaults to a clean light gray */
+    background-color: var(--mood-bg, #f1f5f9) !important;
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.5s ease;
+}
+
+#sidebar-container {
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    /* Sidebar now matches the darker version of the mood */
+    background-color: var(--mood-sidebar, #4840a1);
+    transition: background-color 0.5s ease;
+}
+
+.main-wrapper {
+    flex: 1;
+    margin-left: 260px;
+    padding: 40px 60px;
+    /* Ensures the wrapper background is transparent so the body color shows through */
+    background-color: var(--mood-bg, transparent) !important;
+    transition: background-color 0.5s ease;
+}
+
+/* --- 2. HEADER & LOGO --- */
+.studio-header { text-align: center; margin-bottom: 40px; }
+
+.logo span {
+    color: var(--accent, #a855f7); /* The "Studio" text changes color */
+    transition: color 0.5s ease;
+}
+
+.studio-header p {
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* --- 3. MOOD SELECTOR GRID --- */
 .mood-selector {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -17,7 +63,8 @@
 
 .mood-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(168, 85, 247, 0.15);
+    /* Shadow and border now react to the current mood color */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
     border-color: var(--accent);
 }
 
@@ -27,20 +74,27 @@
     margin-bottom: 15px;
 }
 
-.mood-card h3 { color: var(--bg-dark); margin-bottom: 8px; }
+.mood-card h3 { color: #1e293b; margin-bottom: 8px; }
 .mood-card p { font-size: 0.85rem; color: #64748b; }
 
+/* --- 4. RECIPE RESULTS --- */
 #mood-results h2 {
     font-family: 'Playfair Display', serif;
     animation: fadeIn 0.8s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+.recipe-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
 }
 
-/* Ensure the card images match the Hub style */
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
 .recipe-card img {
     width: 100%;
     height: 200px;
@@ -48,6 +102,18 @@
     transition: 0.3s;
 }
 
-.recipe-card:hover img {
-    transform: scale(1.05);
+/* --- 5. MODAL & UI ELEMENTS --- */
+.underline {
+    border-radius: 2px;
+    transition: background 0.5s ease;
+}
+
+.recipe-section h3 {
+    color: var(--accent);
+    transition: color 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
