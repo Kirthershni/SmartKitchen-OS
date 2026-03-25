@@ -1,3 +1,44 @@
+// --- INITIALIZATION: Runs as soon as the page loads ---
+document.addEventListener('DOMContentLoaded', () => {
+    const recipeGrid = document.getElementById('recipe-grid');
+
+    if (recipeGrid) {
+        console.log("BabyBites Lab Active: Loading local database...");
+        // This shows all your 80+ meals immediately
+        renderBabyRecipes(babyMealsDB); 
+    }
+
+    // Restore any saved mood colors from LocalStorage
+    const savedMood = localStorage.getItem('userMood');
+    if (savedMood) {
+        // This matches the applyMood function you have below
+        applyMood(savedMood);
+    }
+});
+
+// --- SEARCH: Filters your local babyMealsDB list ---
+function searchBabyMeals() {
+    const searchInput = document.getElementById('baby-search');
+    if (!searchInput) return;
+    
+    const q = searchInput.value.toLowerCase();
+    const filtered = babyMealsDB.filter(m => 
+        m.name.toLowerCase().includes(q) || 
+        m.ingredients.some(ing => ing.toLowerCase().includes(q))
+    );
+    renderBabyRecipes(filtered);
+}
+
+// --- CATEGORY FILTER: For Breakfast, Lunch, etc. ---
+function filterBaby(category, event) {
+    // UI Update for buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    if (event && event.target) event.target.classList.add('active');
+
+    // Filter your local database by category
+    const filtered = babyMealsDB.filter(m => m.cat === category);
+    renderBabyRecipes(filtered);
+}
 
 const babyMealsDB = [
     // --- BREAKFAST (20) ---
@@ -40,7 +81,7 @@ const babyMealsDB = [
     { id: 'l2', name: 'Red Lentil Dahl', cat: 'Lunch/Dinner', age: '8m+', cal: 130, p: '9g', c: '22g', f: '1g', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaqgHapDcCPx_8nTVea_8P0KnDc_xGgxZsYA&s', benefits: 'Plant protein.', ingredients: ['Lentils'], instructions: 'Cook mushy.' },
     { id: 'l3', name: 'Salmon & Broccoli', cat: 'Lunch/Dinner', age: '10m+', cal: 210, p: '18g', c: '5g', f: '12g', img: 'https://barefeetinthekitchen.com/wp-content/uploads/2025/04/Glazed-Salmon-and-Brocolli-BFK-9-1-of-1.jpg', benefits: 'Brain fats.', ingredients: ['Salmon'], instructions: 'Steam.' },
     { id: 'l4', name: 'Beef & Carrot Stew', cat: 'Lunch/Dinner', age: '1yr+', cal: 240, p: '20g', c: '15g', f: '10g', img: 'https://www.onceuponachef.com/images/2011/02/beef-stew-with-carrots-potatoes.jpg', benefits: 'Zinc.', ingredients: ['Beef'], instructions: 'Slow cook.' },
-    { id: 'l5', name: 'Turkey Risotto', cat: 'Lunch/Dinner', age: '10m+', cal: 190, p: '14g', c: '25g', f: '4g', img: 'https://encrypted-tbn0.gstatxjvQXdP3THQOEBk9MructpIAg&s', benefits: 'Energy.', ingredients: ['Turkey', 'Rice'], instructions: 'Cook soft.' },
+    { id: 'l5', name: 'Turkey Risotto', cat: 'Lunch/Dinner', age: '10m+', cal: 190, p: '14g', c: '25g', f: '4g', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScu_Mz-0VwjxjvQXdP3THQOEBk9MructpIAg&s', benefits: 'Energy.', ingredients: ['Turkey', 'Rice'], instructions: 'Cook soft.' },
       
     { id: 'l8', name: 'Tofu Veggie Stir', cat: 'Lunch/Dinner', age: '11m+', cal: 150, p: '12g', c: '10g', f: '8g', img: 'https://jessicainthekitchen.com/wp-content/uploads/2022/07/Vegan-Stir-Fry01030.jpg', benefits: 'Proteins.', ingredients: ['Tofu', 'Carrots'], instructions: 'Sauté soft.' },
     { id: 'l9', name: 'Pasta Spinach', cat: 'Lunch/Dinner', age: '1yr+', cal: 220, p: '8g', c: '35g', f: '6g', img: 'https://theclevermeal.com/wp-content/uploads/2020/11/pasta-with-spinach-1.jpg', benefits: 'Energy.', ingredients: ['Pasta', 'Spinach'], instructions: 'Overcook pasta.' },
@@ -70,7 +111,33 @@ const babyMealsDB = [
     { id: 't20', name: 'Date & Oat Balls', cat: 'Soft Treats', age: '1yr+', cal: 115, p: '3g', c: '25g', f: '2g', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiFLg94F5Kl61SM8QgOVTWqRLnL91-gMrbsA&s', benefits: 'Energy.', ingredients: ['Dates', 'Oats'], instructions: 'Roll into balls.' }
 ];
 
+// --- SELF-HEALING RENDERER ---
+function renderBabyRecipes(meals) {
+    const grid = document.getElementById('recipe-grid');
+    if (!grid) return;
+    
+    // Fallback image URL
+    const placeholder = "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=500";
 
+    grid.innerHTML = meals.map(meal => `
+        <div class="recipe-card" onclick="openBabyModal('${meal.id}')">
+            <div class="cal-badge" style="position:absolute; background:rgba(0,0,0,0.8); color:white; padding:5px 12px; border-radius:20px; margin:15px; font-size:12px;">${meal.cal} kcal</div>
+            <img src="${meal.img}" 
+                 alt="${meal.name}" 
+                 onerror="this.onerror=null;this.src='${placeholder}';" 
+                 style="width:100%; height:220px; object-fit:cover; border-bottom:1px solid #eee;">
+            <div style="padding:15px;">
+                <span class="baby-tag" style="background:var(--accent); color:white; padding:4px 10px; border-radius:15px; font-size:11px;">${meal.age}</span>
+                <h3 style="margin:12px 0; font-size:1.1rem;">${meal.name}</h3>
+                <div class="macros-strip" style="display:flex; justify-content:space-between; font-size:13px; background:#f8fafc; padding:8px; border-radius:10px;">
+                    <span>P: <b>${meal.p}</b></span>
+                    <span>C: <b>${meal.c}</b></span>
+                    <span>F: <b>${meal.f}</b></span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
 const moodConfigs = {
     'happy': { bg: '#fefce8', accent: '#eab308', sidebar: '#854d0e', voice: "Feeling Happy! Let's cook something bright." },
     'sad':   { bg: '#eff6ff', accent: '#3b82f6', sidebar: '#1e3a8a', voice: "It's okay to feel down. Let's make something comforting." },
@@ -79,19 +146,36 @@ const moodConfigs = {
     'reset': { bg: '#f1f5f9', accent: '#a855f7', sidebar: '#4840a1', voice: "System reset to default." }
 };
 
-// 3. CORE FUNCTIONS
+// --- DYNAMIC COLOR ENGINE ---
+function applyMood(moodKey) {
+    const config = moodConfigs[moodKey];
+    if (!config) return;
+
+    // Apply colors to CSS Variables
+    document.documentElement.style.setProperty('--mood-bg', config.bg);
+    document.documentElement.style.setProperty('--mood-color', config.accent);
+    document.documentElement.style.setProperty('--mood-sidebar', config.sidebar);
+
+    // Trigger the Lab Voice
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(config.voice);
+        msg.pitch = 1.2; 
+        msg.rate = 0.9;
+        window.speechSynthesis.speak(msg);
+    }
+}
+// --- CORE FUNCTIONS ---
+
 function renderBabyRecipes(meals) {
     const grid = document.getElementById('recipe-grid');
     if (!grid) return;
-    
-    const placeholder = "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=500";
-
     grid.innerHTML = meals.map(meal => `
         <div class="recipe-card" onclick="openBabyModal('${meal.id}')">
             <div class="cal-badge" style="position:absolute; background:rgba(0,0,0,0.8); color:white; padding:5px 12px; border-radius:20px; margin:15px; font-size:12px; border:1px solid rgba(255,255,255,0.2);">${meal.cal} kcal</div>
-            <img src="${meal.img}" alt="${meal.name}" onerror="this.src='${placeholder}'" style="width:100%; height:220px; object-fit:cover; border-bottom:1px solid #eee;" loading="lazy">
+            <img src="${meal.img}" alt="${meal.name}" style="width:100%; height:220px; object-fit:cover; border-bottom:1px solid #eee;" loading="lazy">
             <div style="padding:15px;">
-                <span class="baby-tag" style="background:var(--mood-color, #a855f7); color:white; padding:4px 10px; border-radius:15px; font-size:11px; font-weight:700;">${meal.age}</span>
+                <span class="baby-tag" style="background:var(--accent); color:white; padding:4px 10px; border-radius:15px; font-size:11px; font-weight:700;">${meal.age}</span>
                 <h3 style="margin:12px 0; font-size:1.1rem; color:#1e293b;">${meal.name}</h3>
                 <div class="macros-strip" style="display:flex; justify-content:space-between; font-size:13px; color:#64748b; background:#f8fafc; padding:8px; border-radius:10px;">
                     <span>P: <b>${meal.p}</b></span>
@@ -103,11 +187,15 @@ function renderBabyRecipes(meals) {
     `).join('');
 }
 
+function filterBaby(category, event) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    const filtered = babyMealsDB.filter(m => m.cat === category);
+    renderBabyRecipes(filtered);
+}
+
 function searchBabyMeals() {
-    const searchInput = document.getElementById('baby-search') || document.getElementById('main-search');
-    if (!searchInput) return;
-    
-    const q = searchInput.value.toLowerCase();
+    const q = document.getElementById('baby-search').value.toLowerCase();
     const filtered = babyMealsDB.filter(m => 
         m.name.toLowerCase().includes(q) || 
         m.ingredients.some(ing => ing.toLowerCase().includes(q))
@@ -115,102 +203,41 @@ function searchBabyMeals() {
     renderBabyRecipes(filtered);
 }
 
-function filterBaby(category, event) {
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    if (event) event.target.classList.add('active');
-    
-    const filtered = babyMealsDB.filter(m => m.cat === category);
-    renderBabyRecipes(filtered);
-}
-// --- MOOD BRIDGE: Connects Sidebar buttons to the Baby Lab ---
-window.changeMood = function(moodKey) {
-    console.log("Sidebar clicked mood:", moodKey);
-    applyMood(moodKey);
-};
-
-// Update your existing applyMood to be "Global"
-window.applyMood = function(moodKey) {
-    const config = moodConfigs[moodKey];
-    if (!config) return;
-
-    // 1. Save to memory so it stays when you refresh
-    localStorage.setItem('userMood', moodKey);
-
-    // 2. Apply colors to the whole document
-    document.documentElement.style.setProperty('--mood-bg', config.bg);
-    document.documentElement.style.setProperty('--mood-color', config.accent);
-    document.documentElement.style.setProperty('--mood-sidebar', config.sidebar);
-
-    // 3. Force the body background to update immediately
-    document.body.style.backgroundColor = config.bg;
-    
-    // 4. Handle Voice
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const msg = new SpeechSynthesisUtterance(config.voice);
-        window.speechSynthesis.speak(msg);
-    }
-};
-
-function applyMood(moodKey) {
-    const config = moodConfigs[moodKey];
-    if (!config) return;
-    document.documentElement.style.setProperty('--mood-bg', config.bg);
-    document.documentElement.style.setProperty('--mood-color', config.accent);
-    document.documentElement.style.setProperty('--mood-sidebar', config.sidebar);
-}
-
 function openBabyModal(id) {
     const meal = babyMealsDB.find(m => m.id === id);
-    if (!meal) return;
+    if (typeof speakMood === 'function') speakMood(`Analyzing ${meal.name}. This meal provides ${meal.benefits}`);
     
     document.getElementById('modal-body').innerHTML = `
         <div style="display:flex; gap:25px; flex-wrap:wrap;">
-            <img src="${meal.img}" style="width:100%; max-width:450px; border-radius:20px;">
+            <img src="${meal.img}" style="width:100%; max-width:450px; border-radius:20px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
             <div style="flex:1; border:4px solid #000; padding:20px; background:#fff;">
-                <h2 style="margin:0; border-bottom:10px solid #000; font-size:2rem; text-transform:uppercase;">Molecular Data</h2>
+                <h2 style="margin:0; border-bottom:10px solid #000; font-size:2.2rem; text-transform:uppercase;">Molecular Data</h2>
                 <div style="font-size:1.2rem; line-height:2;">
-                    <p>Calories: <span style="float:right;">${meal.cal}</span></p>
-                    <p>Protein: <span style="float:right;">${meal.p}</span></p>
-                    <p>Carbs: <span style="float:right;">${meal.c}</span></p>
-                    <p>Total Fat: <span style="float:right;">${meal.f}</span></p>
+                    <p style="border-bottom:2px solid #000;">Calories: <span style="float:right;">${meal.cal}</span></p>
+                    <p style="border-bottom:2px solid #000;">Protein: <span style="float:right;">${meal.p}</span></p>
+                    <p style="border-bottom:2px solid #000;">Carbs: <span style="float:right;">${meal.c}</span></p>
+                    <p style="border-bottom:10px solid #000;">Total Fat: <span style="float:right;">${meal.f}</span></p>
                 </div>
             </div>
         </div>
-        <div style="background:#ecfdf5; border-left:6px solid #10b981; padding:20px; margin:20px 0;">
-            <strong>🧪 Growth Benefit:</strong> ${meal.benefits}
+        <div style="background:#ecfdf5; border-left:6px solid #10b981; padding:20px; margin:25px 0; border-radius:10px;">
+            <strong style="color:#065f46; font-size:1.1rem;">🧪 Growth Benefit Analysis:</strong> 
+            <p style="margin-top:5px; color:#065f46;">${meal.benefits}</p>
         </div>
-        <h3>Ingredients</h3>
-        <ul>${meal.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
-        <h3>Instructions</h3>
-        <p>${meal.instructions}</p>
+        <h3 style="color:#1e293b;">Required Ingredients</h3>
+        <ul style="column-count: 2; color:#475569;">${meal.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+        <h3 style="color:#1e293b;">Molecular Synthesis (Instructions)</h3>
+        <p style="background:#f8fafc; padding:20px; border-radius:15px; border:1px solid #e2e8f0; color:#475569;">${meal.instructions}</p>
     `;
     document.getElementById('recipe-modal').style.display = 'block';
 }
 
 function closeModal() {
     document.getElementById('recipe-modal').style.display = 'none';
+    if(window.speechSynthesis) window.speechSynthesis.cancel();
 }
-// 4. AUTO-INIT: The important part for instant loading
+
+// Auto-init
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Get the grid element
-    const grid = document.getElementById('recipe-grid');
-    
-    // 2. Set an empty/welcome message instead of showing all recipes
-    if (grid) {
-        grid.innerHTML = `
-            <div style="grid-column: 1/-1; text-align: center; padding: 100px 20px; color: #64748b;">
-                <div style="font-size: 3.5rem; margin-bottom: 15px; opacity: 0.5;">🧪</div>
-                <h2 style="font-family: 'Playfair Display'; color: #1e293b; margin: 0;">Lab Standby</h2>
-                <p style="margin-top: 10px;">Select a molecular category above to begin analysis.</p>
-            </div>`;
-    }
-
-    // 3. APPLY SAVED MOOD (This keeps your colors working!)
-    const savedMood = localStorage.getItem('userMood');
-    if (savedMood) {
-        console.log("Restoring Lab Mood:", savedMood);
-        applyMood(savedMood);
-    }
-});
-
+    renderBabyRecipes(babyMealsDB);
+}); 
